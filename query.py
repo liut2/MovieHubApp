@@ -47,7 +47,7 @@ class Query:
 	def get_movies_containing_title(self, string):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		cursor.execute('''select title from movies where title::varchar(500) like '%{0}%';'''.format(string))
+		cursor.execute('''select * from movies where title::varchar(500) like '%{0}%';'''.format(string))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
