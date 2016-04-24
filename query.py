@@ -66,7 +66,7 @@ class Query:
 			json_record["weighted_rating"] = row[7]
 			json_record["release_year"] = row[8]
 			json_list.append(json_record)
-		return json.dumps(json_list, indent=4)
+		return json.dumps(json_list, indent = 4)
 
 
 #if __name__ == "__main__":
