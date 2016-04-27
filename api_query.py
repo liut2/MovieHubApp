@@ -2,14 +2,17 @@
 import psycopg2
 import json
 '''
-don't forget to test lower/uppercase and numbers in unittest
+	api_query.py
+	author: Tao Liu and Xi Chen
+	This Query class wraps the details of the API query for api.py, which will call methods
+	implemented in api_query.py.
 '''
 class Query:
 	def __init__(self):
 		pass
 
 	def connect_to_db(self):
-		connection = psycopg2.connect(database="movie_app", user="taoliu", host="localhost", port="5432")
+		connection = psycopg2.connect(database="liut2", user="liut2")
 		return connection
 
 	def get_recent_release(self, first_n):

@@ -3,7 +3,7 @@ import unittest
 import requests
 import json
 '''
-This api_test contains 34 tests cases for our movie app. It covers all of typical 
+This api_test contains 34 tests cases for our movie app. It covers all of typical
 and edge cases we can think of for this HTTP based web API.
 '''
 class MovieQueryTester(unittest.TestCase):
@@ -30,7 +30,7 @@ class MovieQueryTester(unittest.TestCase):
 			received_data = None
 		expected_data = [ { "rating": 4.44, "genres": [ "crime", "drama" ], "movie_id": 318, "release_year": 1994, "tmdb_id": 278, "title": "shawshank redemption, the ", "number_of_ratings": 77887, "imdb_id": 111161, "weighted_rating": 4.423 } ]
 		self.assertEqual(received_data,expected_data)
-		
+
 
 	def test_top_rated_empty(self):
 		url = "http://localhost:5000/topratedmovies/0"

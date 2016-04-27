@@ -9,3 +9,4 @@ create table movies
 	 weighted	float(1),
 	 release_year	int,
 	 primary key(movie_id));
+	 #app.run(host='http://thacker.mathcs.carleton.edu', port=5128)
