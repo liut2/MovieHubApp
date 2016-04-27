@@ -62,4 +62,4 @@ def get_movies_containing_title():
 
 if __name__ == '__main__':
 	app.debug = True
-	app.run(host='http://thacker.mathcs.carleton.edu', port=5128)
+	app.run(host='thacker.mathcs.carleton.edu', port=5128)
