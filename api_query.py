@@ -12,7 +12,7 @@ class Query:
 		pass
 
 	def connect_to_db(self):
-		connection = psycopg2.connect(database="liut2", user="liut2")
+		connection = psycopg2.connect(database="liut2", user="liut2", password="heart724barn")
 		return connection
 
 	def get_recent_release(self, first_n):
