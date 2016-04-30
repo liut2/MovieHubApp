@@ -1,0 +1,297 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+      <!-- include coverflow after all dependencies-->
+      <!-- put this in your html header -->
+      <link rel="stylesheet" type="text/css" href="coverflow.css" />
+      <script src="jquery.min.js"></script>
+
+      <!-- include coverflow after all dependencies-->
+      <script src="coverflow.min.js"></script>
+      <script>
+        $(function() {
+          $('#coverflow').coverflow({
+            active: 2,
+            select: function(event, ui) {
+              console.log('here');
+            }
+          });
+          $('#coverflow img').click(function() {
+            if (!$(this).hasClass('ui-state-active')) {
+              return;
+            }
+            $('#coverflow').coverflow('next');
+          });
+        });
+        $(document).ready(function(){
+          $('.carousel').carousel();
+        });
+      </script>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style>
+        html{
+          font-family: 'Raleway', sans-serif;
+          background-color: #EDEFED;
+        }
+        h3{
+          font-weight: bold;
+          margin: 50px 0px 0px 0px;
+          display: inline-block;
+        }
+        .searchnav{
+          width:40%;
+          padding: 0px;
+          margin-left:0px;
+          position: relative;
+          left:400px;
+        }
+        .ui-coverflow-wrapper{
+            height:400px;
+            margin-top: 100px;
+        }
+        .ui-state-active{
+            border:0px;
+        }
+        .button{
+          position:relative;
+          left:20px;
+          bottom: 10px;
+        }
+        .content{
+          margin-top: 15px;
+        }
+        .left-nav{
+          position: relative;
+          left:180px;
+        }
+        .dis{
+          position: relative;
+          left:25px;
+        }
+      </style>
+    </head>
+
+    <body>
+      <script src="coverflow.min.js"></script>
+      <script>
+        $(function() {
+          // and kick off
+            $('#coverflow').coverflow();
+        });
+      </script>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+<!--       navigation -->
+      <nav class = "white z-depth-1">
+        <div class="nav-wrapper container">
+          <a href="#" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
+
+          <ul id="nav-mobile" class="hide-on-med-and-down option left-nav">
+            <li><a href="sass.html" class = "cyan-text text-darken-4">Recommend</a></li>
+            <li><a href="badges.html" class = "cyan-text text-darken-4" >Game</a></li>
+          </ul>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html" class = "cyan-text text-darken-4">FAQ</a></li>
+            <li><a href="badges.html" class = "cyan-text text-darken-4" >Sign Up</a></li>
+            <li><a href="collapsible.html" class = "cyan-text text-darken-4">Login In</a></li>
+          </ul>
+        </div>
+      </nav>
+
+  <!--       top-rated -->
+      <div class = "container">
+        <div>
+          <h3 class = "cyan-text text-darken-4">Top Rated</h3>
+          <a class="waves-effect waves-light btn button">See More</a>
+          <p class = "cyan-text text-darken-4 dis">Top rated movies according to our algorithm</p>
+        </div>
+
+        <div class = "row">
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk1MTk4MDQ4OF5BMl5BanBnXkFtZTYwNDYyMzg4._V1_UY268_CR8,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTczMTMyMTgyM15BMl5BanBnXkFtZTcwOTc4OTQyMQ@@._V1_UY268_CR4,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk5MjAyNTM4Ml5BMl5BanBnXkFtZTgwMjY0MDI0MjE@._V1_UX182_CR0,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_UY268_CR9,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  <!--       top-rated -->
+      <div class = "container content">
+        <div>
+          <h3 class = "cyan-text text-darken-4">Favorite from last year</h3>
+          <a class="waves-effect waves-light btn button">See More</a>
+          <p class = "cyan-text text-darken-4 dis">Top rated movies in 2015</p>
+        </div>
+
+        <div class = "row">
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk1MTk4MDQ4OF5BMl5BanBnXkFtZTYwNDYyMzg4._V1_UY268_CR8,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTczMTMyMTgyM15BMl5BanBnXkFtZTcwOTc4OTQyMQ@@._V1_UY268_CR4,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk5MjAyNTM4Ml5BMl5BanBnXkFtZTgwMjY0MDI0MjE@._V1_UX182_CR0,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+          <div class = "col s3">
+            <div class="card medium">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_UY268_CR9,0,182,268_AL_.jpg">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  <!--       top-rated -->
+      <div class = "container content">
+        <div>
+          <h3 class = "cyan-text text-darken-4">Recent Release</h3>
+          <a class="waves-effect waves-light btn button">See More</a>
+          <p class = "cyan-text text-darken-4 dis">Movies released in 90 days</p>
+        </div>
+      <div>
+        <div id="coverflow">
+          <img src="http://placehold.it/350x350" />
+          <img src="http://placehold.it/350x350/E8117F/FFFFFF" />
+          <img src="http://placehold.it/350x350" />
+          <img src="http://placehold.it/350x350/E8117F/FFFFFF" />
+          <img src="http://placehold.it/350x350" />
+        </div>
+      </div>
+      <div id="coverflow-slider"></div>
+      </div>
+
+<!-- footer -->
+        <footer class="page-footer cyan darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">MovieHub</h5>
+                <p class="grey-text text-lighten-4">Personalized Movie Recommender</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">About MovieHub</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+              2016 Copyright
+            </div>
+          </div>
+        </footer>
+    </body>
+  </html>
+        
