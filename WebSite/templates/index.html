@@ -283,7 +283,9 @@
         <div class="col s10 cyan-text text-darken-4">
           <h5>Choose 5 movies you like.</h5><h6> Then we will customize our recommendations for you.</h6>
         </div>
-        <a class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue2">Finish</a>
+        <form method="post" action="{{ url_for('index') }}">
+          <button type="submit" class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue2">Finish</a>
+        </form>
       </div>
       <div class="modal-body" style="margin-left: 20px">
         <select multiple="multiple" class="image-picker show-labels show-html">
@@ -358,6 +360,7 @@
             return;
           }
           $("#modal3").closeModal();
+          session.alread_choose_preference = true;
         });
       })
     </script>
