@@ -16,18 +16,17 @@
 </head>
 
 <body>
-  <!-- navigation bar-->
+  <!-- start of navigation bar-->
   {% block navbar %}
   <nav class = "white z-depth-1">
     <div class="nav-wrapper container">
       <a href="#" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
 
       <ul id="nav-mobile" class="hide-on-med-and-down option left-nav">
-        <li><a href="#" class = "cyan-text text-darken-4">Recommend</a></li>
-        <li><a href="#" class = "cyan-text text-darken-4" >Game</a></li>
+        <li class="active"><a href="#" class = "cyan-text text-darken-4">Recommendations</a></li>
+        <li><a href="#" class = "cyan-text text-darken-4" >Game & Fun</a></li>
       </ul>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html" class = "cyan-text text-darken-4">FAQ</a></li>
         {% if not session.logged_in %}
           <li id="auto-trigger"><a id="signup-modal" class = "cyan-text text-darken-4 modal-trigger" href="#modal1" >Login</a></li>
         {% else %}
@@ -37,172 +36,188 @@
     </div>
   </nav>
   {% endblock %}
-<!--       top-rated -->
+  <!-- end of navigation bar-->
+  <!--start of top rated -->
   <div class = "container">
     <div>
       <h3 class = "cyan-text text-darken-4">Top Rated</h3>
       <a class="waves-effect waves-light btn button">See More</a>
-      <p class = "cyan-text text-darken-4 dis">Top rated movies according to our algorithm</p>
-    </div>
-
-    <div class = "row">
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk1MTk4MDQ4OF5BMl5BanBnXkFtZTYwNDYyMzg4._V1_UY268_CR8,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTczMTMyMTgyM15BMl5BanBnXkFtZTcwOTc4OTQyMQ@@._V1_UY268_CR4,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk5MjAyNTM4Ml5BMl5BanBnXkFtZTgwMjY0MDI0MjE@._V1_UX182_CR0,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_UY268_CR9,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
+  <!--start of carousel container -->
+  <div class="carousel">
+    <a class="carousel-item" href="#one!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/GPWcgD">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#two!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/jYZqf1">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#three!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/NQTQDy">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#four!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/QI4f81">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#five!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/HcTBaX">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#one!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/GPWcgD">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#two!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/jYZqf1">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#three!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/NQTQDy">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#four!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/QI4f81">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#five!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/HcTBaX">
+          </div>
+        </div>
+    </a>
+   </div>
+   <!--end of carousel container -->
+   <!--end of top rated-->
 
 
-<!--       top-rated -->
+  <!--start of favourite from last year -->
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Favorite from last year</h3>
       <a class="waves-effect waves-light btn button">See More</a>
-      <p class = "cyan-text text-darken-4 dis">Top rated movies in 2015</p>
-    </div>
-
-    <div class = "row">
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk1MTk4MDQ4OF5BMl5BanBnXkFtZTYwNDYyMzg4._V1_UY268_CR8,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTczMTMyMTgyM15BMl5BanBnXkFtZTcwOTc4OTQyMQ@@._V1_UY268_CR4,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTk5MjAyNTM4Ml5BMl5BanBnXkFtZTgwMjY0MDI0MjE@._V1_UX182_CR0,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-      <div class = "col s3">
-        <div class="card medium">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://ia.media-imdb.com/images/M/MV5BMTgwMjI4MzU5N15BMl5BanBnXkFtZTcwMTMyNTk3OA@@._V1_UY268_CR9,0,182,268_AL_.jpg">
-          </div>
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div> 
   </div>
+   <!--start of carousel container -->
+  <div class="carousel">
+    <a class="carousel-item" href="#one!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/GPWcgD">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#two!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/jYZqf1">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#three!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/NQTQDy">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#four!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/QI4f81">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#five!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/HcTBaX">
+          </div>
+        </div>
+    </a>
+   </div>
+   <!--end of carousel container -->
+   <!--end of favourite from last year -->
 
-
-<!--       top-rated -->
+  <!--start of recent release -->
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Recent Release</h3>
       <a class="waves-effect waves-light btn button">See More</a>
-      <p class = "cyan-text text-darken-4 dis">Movies released in 90 days</p>
     </div>
-
+  <!--start of carousel container -->
   </div>
   <div class="carousel">
-	  <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/250/250/nature/1"></a>
-	  <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/250/250/nature/2"></a>
-	  <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/250/250/nature/3"></a>
-	  <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/250/250/nature/4"></a>
-	  <a class="carousel-item" href="#five!"><img src="http://lorempixel.com/250/250/nature/5"></a>
+	  <a class="carousel-item" href="#one!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/GPWcgD">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#two!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/jYZqf1">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#three!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/NQTQDy">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#four!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/QI4f81">
+          </div>
+        </div>
+    </a>
+    <a class="carousel-item" href="#five!">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="http://goo.gl/HcTBaX">
+          </div>
+        </div>
+    </a>
    </div>
+   <!--end of carousel container -->
+   <!--end of recent release -->
 
-
-
-<!-- footer -->
+    <!-- footer -->
     {% block footer %}
     <footer class="page-footer cyan darken-4">
       <div class="container">
@@ -301,11 +316,13 @@
     <div class="modal-footer"></div>
     </div>
     <!-- end of modal 3, movies preference form-->
+    <!-- import js dependency -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../static/js/materialize.js"></script>
     <script src="../static/js/modal.js"></script>
     <script src="../static/js/carousel.js"></script>
     <script src="../static/js/image-picker.js"></script>
+    <!--This section of js code will only be executed when user has logged in but hasn't chosen their preferrences-->
     {%if session.logged_in  and not session.alread_choose_preference %}
     <script type="text/javascript">
       $(document).ready(function(){
@@ -364,6 +381,7 @@
         });
       })
     </script>
+    <!--end of js code-->
     {% endif %}
 </body>
 </html>

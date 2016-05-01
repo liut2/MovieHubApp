@@ -1,11 +1,13 @@
 $(document).ready(function(){
-    $('.carousel').carousel();
+    $('.carousel').carousel({
+    	dist: -30
+    });
 	// Next slide
 	// Next slide
-$('.carousel').carousel('next');
-$('.carousel').carousel('next', [3]); // Move next n times.
-// Previous slide
-$('.carousel').carousel('prev');
-$('.carousel').carousel('prev', [4]); // Move prev n times.
+	$('.carousel').carousel('next');
+	$('.carousel').carousel('next', [3]); // Move next n times.
+	// Previous slide
+	$('.carousel').carousel('prev');
+	$('.carousel').carousel('prev', [4]); // Move prev n times.
       
 });

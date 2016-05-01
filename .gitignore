@@ -4,3 +4,10 @@
 ._imdb_reader.py
 ._phase2.txt
 ._WebSite
+/website/templates/._css
+/website/templates/._js
+/website/templates/._font
+/website/templates/._fonts
+/website/*.pyc
+
+
