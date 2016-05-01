@@ -304,9 +304,10 @@
     <script src="../static/js/modal.js"></script>
     <script src="../static/js/carousel.js"></script>
     <script src="../static/js/image-picker.js"></script>
-    {%if session.logged_in %}
+    {%if session.logged_in  and not session.alread_choose_preference %}
     <script type="text/javascript">
       $(document).ready(function(){
+        var count = 0;
         //open the modal2 after DOM is loaded
         $("#modal2").openModal({
           dismissible:false
@@ -317,6 +318,7 @@
           show_label: true,
           clicked: function(){
             var clicked_list = $(this).val();
+            count = clicked_list.length
             obj = document.getElementsByClassName("continue")[0];
             if (obj.id == "continue1"){
               if (clicked_list != null && clicked_list.length >= 3){
@@ -335,15 +337,26 @@
         });
         //listen to click event on continue button in modal2
         $("#continue1").click(function(){
-          $("#modal2").closeModal();
+          if (count < 3){
+            return;
+          }
           document.getElementById("continue1").classList.remove("continue");
           document.getElementById("continue2").classList.add("continue");
-          $("#modal3").openModal({
-            dismissible:false
+          count = 0;
+          $("#modal2").closeModal({
+            complete: function() { 
+              $("#modal3").openModal({
+              dismissible:false
+              });
+            }
           });
+          
         });
         //listen to click event on finish button in modal3
         $("#continue2").click(function(){
+          if (count < 5){
+            return;
+          }
           $("#modal3").closeModal();
         });
       })
