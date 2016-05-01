@@ -1,5 +1,5 @@
 .modal-body {
-	height: 800px;
+	height: 1000px;
 }
 html{
   font-family: 'Raleway', sans-serif;
@@ -37,3 +37,4 @@ h3{
 .modal-close{
   float: right;
 }
+

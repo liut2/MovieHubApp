@@ -12,6 +12,7 @@
   {% endblock %}
   <!-- Import other css files -->
   <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="../static/css/image-picker.css" />
 </head>
 
 <body>
@@ -28,7 +29,7 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="sass.html" class = "cyan-text text-darken-4">FAQ</a></li>
         {% if not session.logged_in %}
-          <li><a id="signup-modal" class = "cyan-text text-darken-4 modal-trigger" href="#modal1" >Login</a></li>
+          <li id="auto-trigger"><a id="signup-modal" class = "cyan-text text-darken-4 modal-trigger" href="#modal1" >Login</a></li>
         {% else %}
           <li><a class = "cyan-text text-darken-4" href="/logout" >Logout</a></li>
         {% endif %}
@@ -225,6 +226,7 @@
       </div>
     </footer>
     {% endblock %}
+    <!-- start of modal 1, login form-->
     <div id="modal1" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -250,9 +252,102 @@
     </div>
     <div class="modal-footer"></div>
     </div>
+    <!-- end of modal 1, login form-->
+    <!-- start of modal 2, channel preference form-->
+    <div id="modal2" class="modal">
+    <div class="modal-content">
+      <div class="modal-header row">
+        <div class="col s10 cyan-text text-darken-4">
+          <h5>Choose 3 genres you like.</h5><h6> Then we will customize our recommendations for you.</h6>
+        </div>
+        <a class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue1">Continue</a>
+      </div>
+      <div class="modal-body" style="margin-left: 20px">
+        <select multiple="multiple" class="image-picker show-labels show-html">
+          <option data-img-src="http://placekitten.com/180/200" value="1"><div class="genre">Crime</div></option>
+          <option data-img-src="http://placekitten.com/180/200" value="2">Comedy</option>
+          <option data-img-src="http://placekitten.com/180/200" value="3">Sci-Fi</option>
+          <option data-img-src="http://placekitten.com/180/200" value="4">Thriller</option>
+          <option data-img-src="http://placekitten.com/180/200" value="5">Romance</option>
+          <option data-img-src="http://placekitten.com/180/200" value="6">History</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer"></div>
+    </div>
+    <!-- end of modal 2, channel preference form-->
+    <!-- start of modal 3, movies preference form-->
+    <div id="modal3" class="modal">
+    <div class="modal-content">
+      <div class="modal-header row">
+        <div class="col s10 cyan-text text-darken-4">
+          <h5>Choose 5 movies you like.</h5><h6> Then we will customize our recommendations for you.</h6>
+        </div>
+        <a class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue2">Finish</a>
+      </div>
+      <div class="modal-body" style="margin-left: 20px">
+        <select multiple="multiple" class="image-picker show-labels show-html">
+          <option data-img-src="http://placekitten.com/180/200" value="1"><div class="genre">Roman Holiday</div></option>
+          <option data-img-src="http://placekitten.com/180/200" value="2">The dark knight</option>
+          <option data-img-src="http://placekitten.com/180/200" value="3">The godfather</option>
+          <option data-img-src="http://placekitten.com/180/200" value="4">Toy story 1</option>
+          <option data-img-src="http://placekitten.com/180/200" value="5">Hangover</option>
+          <option data-img-src="http://placekitten.com/180/200" value="6">Forest Gump</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer"></div>
+    </div>
+    <!-- end of modal 3, movies preference form-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../static/js/materialize.js"></script>
     <script src="../static/js/modal.js"></script>
     <script src="../static/js/carousel.js"></script>
+    <script src="../static/js/image-picker.js"></script>
+    {%if session.logged_in %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        //open the modal2 after DOM is loaded
+        $("#modal2").openModal({
+          dismissible:false
+        });
+        document.getElementById("continue1").classList.add("continue");
+        //image picker events
+        $("select").imagepicker({
+          show_label: true,
+          clicked: function(){
+            var clicked_list = $(this).val();
+            obj = document.getElementsByClassName("continue")[0];
+            if (obj.id == "continue1"){
+              if (clicked_list != null && clicked_list.length >= 3){
+                obj.classList.remove("disabled");
+              }else{
+                obj.classList.add("disabled");
+              }
+            }else {
+              if (clicked_list != null && clicked_list.length >= 5){
+                obj.classList.remove("disabled");
+              }else{
+                obj.classList.add("disabled");
+              }
+            }
+          }
+        });
+        //listen to click event on continue button in modal2
+        $("#continue1").click(function(){
+          $("#modal2").closeModal();
+          document.getElementById("continue1").classList.remove("continue");
+          document.getElementById("continue2").classList.add("continue");
+          $("#modal3").openModal({
+            dismissible:false
+          });
+        });
+        //listen to click event on finish button in modal3
+        $("#continue2").click(function(){
+          $("#modal3").closeModal();
+        });
+      })
+    </script>
+    {% endif %}
 </body>
 </html>
