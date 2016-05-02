@@ -108,12 +108,13 @@
    <!--end of recent release -->
    <!--start of personal recommendation-->
    {% if not session.logged_in %}
-   <div class = "container content">
+  <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Customized Movies</h3>
       <a class="waves-effect disabled waves-light btn button">Please Login to See More</a>
     </div>
-    <div id="locked" class="carousel">
+  </div>
+  <div id="locked" class="carousel">
     {% for num in freq %}
     <a class="carousel-item" href="#locked">
       <div class="card">
@@ -123,11 +124,31 @@
         </div>
     </a>
     {% endfor %}
-   </div>
+  </div>
+   {% else %}
+      {% for genre in genre_list %}
+      <div class = "container content">
+        <div>
+          <h3 class = "cyan-text text-darken-4">{{genre.type.title()}}</h3>
+          <a class="waves-effect waves-light btn button">See More</a>
+        </div>
+      </div>
+      <div id="{{genre.type}}" class="carousel">
+        {% for movie in genre.body %}
+        <a class="carousel-item" href="#{{genre.type}}">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="{{movie.img_path}}">
+              </div>
+            </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% endfor %}
    {% endif %}
   <!--end of personal recommendation-->
   <!--start of carousel container -->
-  </div>
+  
     <!-- footer -->
     {% block footer %}
     <footer class="page-footer cyan darken-4">
@@ -172,7 +193,7 @@
           </div>
         </div>
         <div style="text-align: center">
-          <a class="waves-effect waves-light btn button" href="/login">Login with Facebook</a>
+          <a id="loginbutton" class="waves-effect waves-light btn button" href="/login">Login with Facebook</a>
         </div>
       </div>
     </div>
@@ -189,14 +210,14 @@
         <a class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue1">Continue</a>
       </div>
       <div class="modal-body" style="margin-left: 20px">
-        <select multiple="multiple" class="image-picker show-labels show-html">
-          <option data-img-src="http://placekitten.com/180/200" value="1"><div class="genre">Crime</div></option>
-          <option data-img-src="http://placekitten.com/180/200" value="2">Comedy</option>
-          <option data-img-src="http://placekitten.com/180/200" value="3">Sci-Fi</option>
-          <option data-img-src="http://placekitten.com/180/200" value="4">Thriller</option>
-          <option data-img-src="http://placekitten.com/180/200" value="5">Romance</option>
-          <option data-img-src="http://placekitten.com/180/200" value="6">History</option>
-        </select>
+          <select multiple="multiple" class="image-picker show-labels show-html">
+            <option data-img-src="http://placekitten.com/180/200" value="Crime"><div class="genre">Crime</div></option>
+            <option data-img-src="http://placekitten.com/180/200" value="Comedy">Comedy</option>
+            <option data-img-src="http://placekitten.com/180/200" value="Sci-Fi">Sci-Fi</option>
+            <option data-img-src="http://placekitten.com/180/200" value="Thriller">Thriller</option>
+            <option data-img-src="http://placekitten.com/180/200" value="Romance">Romance</option>
+            <option data-img-src="http://placekitten.com/180/200" value="History">History</option>
+          </select>
       </div>
     </div>
     <div class="modal-footer"></div>
@@ -209,9 +230,7 @@
         <div class="col s10 cyan-text text-darken-4">
           <h5>Choose 5 movies you like.</h5><h6> Then we will customize our recommendations for you.</h6>
         </div>
-        <form method="post" action="{{ url_for('index') }}">
-          <button type="submit" class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue2">Finish</a>
-        </form>
+          <a class="col s2 waves-effect waves-light disabled btn button" style="margin-top: 20px;" id="continue2">Finish</a>
       </div>
       <div class="modal-body" style="margin-left: 20px">
         <select multiple="multiple" class="image-picker show-labels show-html">
@@ -233,14 +252,20 @@
     <script src="../static/js/carousel.js"></script>
     <script src="../static/js/modal.js"></script>
     <script src="../static/js/image-picker.js"></script>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
     <!--This section of js code will only be executed when user has logged in but hasn't chosen their preferrences-->
     {%if session.logged_in  and not session.alread_choose_preference %}
     <script type="text/javascript">
       $(document).ready(function(){
         var count = 0;
+        var selected_genres = []
+        var selected_movies = []
         //open the modal2 after DOM is loaded
         $("#modal2").openModal({
-          dismissible:false
+          dismissible:false,
+          opacity: 0.7
         });
         document.getElementById("continue1").classList.add("continue");
         //image picker events
@@ -248,15 +273,17 @@
           show_label: true,
           clicked: function(){
             var clicked_list = $(this).val();
-            count = clicked_list.length
+            count = clicked_list.length;
             obj = document.getElementsByClassName("continue")[0];
             if (obj.id == "continue1"){
+              selected_genres = clicked_list;
               if (clicked_list != null && clicked_list.length >= 3){
                 obj.classList.remove("disabled");
               }else{
                 obj.classList.add("disabled");
               }
             }else {
+              selected_movies = clicked_list;
               if (clicked_list != null && clicked_list.length >= 5){
                 obj.classList.remove("disabled");
               }else{
@@ -270,13 +297,15 @@
           if (count < 3){
             return;
           }
+          //console.log(selected_genres);
           document.getElementById("continue1").classList.remove("continue");
           document.getElementById("continue2").classList.add("continue");
           count = 0;
           $("#modal2").closeModal({
             complete: function() { 
               $("#modal3").openModal({
-              dismissible:false
+                dismissible:false,
+                opacity: 0.7
               });
             }
           });
@@ -287,8 +316,16 @@
           if (count < 5){
             return;
           }
+          console.log(selected_genres);
+          console.log(selected_movies);
           $("#modal3").closeModal();
-          session.alread_choose_preference = true;
+
+          $.getJSON($SCRIPT_ROOT, {
+            genres: JSON.stringify(selected_genres),
+            movies: JSON.stringify(selected_movies)
+          }, function(data){
+            console.log(data.result)
+          });
         });
       })
     </script>
