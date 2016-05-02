@@ -9,10 +9,10 @@
 import flask
 import json
 from flask import request
-from api_query import Query
+from api_query import MovieQuery
 
 app = flask.Flask(__name__)
-query = Query()
+query = MovieQuery()
 
 @app.route('/')
 #Returns welcome msg when the users visits home route.

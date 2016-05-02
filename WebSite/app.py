@@ -1,6 +1,8 @@
 from flask import Flask, redirect, url_for, session, request, render_template
 from flask_oauth import OAuth
 from user_query import UserQuery
+from api_query import MovieQuery
+import json
 
 SECRET_KEY = 'moviehub development key'
 FACEBOOK_APP_ID = '260838524257280'
@@ -10,6 +12,7 @@ app = Flask(__name__)
 app.secret_key = SECRET_KEY
 oauth = OAuth()
 userquery = UserQuery()
+moviequery = MovieQuery()
 
 facebook = oauth.remote_app('facebook',
 	base_url='https://graph.facebook.com/',
@@ -28,7 +31,11 @@ def index():
 		print "post action"
 		return redirect(url_for('login'))
 
-	return render_template("index.html")
+	toprated = json.loads(moviequery.get_toprated(30))
+	favourite_last_year = json.loads(moviequery.get_favourite_from_year(2015, 30))
+	recent_release = json.loads(moviequery.get_recent_release(30))
+	
+	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release)
 
 
 @app.route('/login')

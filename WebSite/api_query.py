@@ -7,7 +7,7 @@ import json
 	This Query class wraps the details of the API query for api.py, which will call methods
 	implemented in api_query.py.
 '''
-class Query:
+class MovieQuery:
 	def __init__(self):
 		pass
 

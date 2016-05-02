@@ -45,77 +45,19 @@
     </div>
   </div>
   <!--start of carousel container -->
-  <div class="carousel">
-    <a class="carousel-item" href="#one!">
+  <div id="toprated" class="carousel">
+    {% for movie in toprated %}
+    <a class="carousel-item" href="#toprated">
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/GPWcgD">
+            <img class="activator" src="{{movie.img_path}}">
+            <div style="text-align: center;">
+              <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
+            </div>
           </div>
         </div>
     </a>
-    <a class="carousel-item" href="#two!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/jYZqf1">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#three!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/NQTQDy">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#four!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/QI4f81">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#five!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/HcTBaX">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#one!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/GPWcgD">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#two!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/jYZqf1">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#three!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/NQTQDy">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#four!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/QI4f81">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#five!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/HcTBaX">
-          </div>
-        </div>
-    </a>
+    {% endfor %}
    </div>
    <!--end of carousel container -->
    <!--end of top rated-->
@@ -129,42 +71,19 @@
     </div> 
   </div>
    <!--start of carousel container -->
-  <div class="carousel">
-    <a class="carousel-item" href="#one!">
+  <div id="lastyear" class="carousel">
+    {% for movie in lastyear %}
+    <a class="carousel-item" href="#lastyear">
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/GPWcgD">
+            <img class="activator" src="{{movie.img_path}}">
+            <div style="text-align: center;">
+              <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
+            </div>
           </div>
         </div>
     </a>
-    <a class="carousel-item" href="#two!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/jYZqf1">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#three!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/NQTQDy">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#four!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/QI4f81">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#five!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/HcTBaX">
-          </div>
-        </div>
-    </a>
+    {% endfor %}
    </div>
    <!--end of carousel container -->
    <!--end of favourite from last year -->
@@ -177,42 +96,19 @@
     </div>
   <!--start of carousel container -->
   </div>
-  <div class="carousel">
-	  <a class="carousel-item" href="#one!">
+  <div id="recent" class="carousel">
+	  {% for movie in recent %}
+    <a class="carousel-item" href="#recent">
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/GPWcgD">
+            <img class="activator" src="{{movie.img_path}}">
+            <div style="text-align: center;">
+              <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
+            </div>
           </div>
         </div>
     </a>
-    <a class="carousel-item" href="#two!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/jYZqf1">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#three!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/NQTQDy">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#four!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/QI4f81">
-          </div>
-        </div>
-    </a>
-    <a class="carousel-item" href="#five!">
-      <div class="card">
-          <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="http://goo.gl/HcTBaX">
-          </div>
-        </div>
-    </a>
+    {% endfor %}
    </div>
    <!--end of carousel container -->
    <!--end of recent release -->
@@ -319,8 +215,8 @@
     <!-- import js dependency -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../static/js/materialize.js"></script>
-    <script src="../static/js/modal.js"></script>
     <script src="../static/js/carousel.js"></script>
+    <script src="../static/js/modal.js"></script>
     <script src="../static/js/image-picker.js"></script>
     <!--This section of js code will only be executed when user has logged in but hasn't chosen their preferrences-->
     {%if session.logged_in  and not session.alread_choose_preference %}
