@@ -51,9 +51,6 @@
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="{{movie.img_path}}">
-            <div style="text-align: center;">
-              <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
-            </div>
           </div>
         </div>
     </a>
@@ -66,7 +63,7 @@
   <!--start of favourite from last year -->
   <div class = "container content">
     <div>
-      <h3 class = "cyan-text text-darken-4">Favorite from last year</h3>
+      <h3 class = "cyan-text text-darken-4">Favorite from Last Year</h3>
       <a class="waves-effect waves-light btn button">See More</a>
     </div> 
   </div>
@@ -77,9 +74,9 @@
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="{{movie.img_path}}">
-            <div style="text-align: center;">
+            <!--<div style="text-align: center;">
               <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
-            </div>
+            </div>-->
           </div>
         </div>
     </a>
@@ -102,9 +99,6 @@
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="{{movie.img_path}}">
-            <div style="text-align: center;">
-              <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
-            </div>
           </div>
         </div>
     </a>
@@ -112,7 +106,28 @@
    </div>
    <!--end of carousel container -->
    <!--end of recent release -->
-
+   <!--start of personal recommendation-->
+   {% if not session.logged_in %}
+   <div class = "container content">
+    <div>
+      <h3 class = "cyan-text text-darken-4">Customized Movies</h3>
+      <a class="waves-effect disabled waves-light btn button">Please Login to See More</a>
+    </div>
+    <div id="locked" class="carousel">
+    {% for num in freq %}
+    <a class="carousel-item" href="#locked">
+      <div class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="../static/img/locked.jpg">
+          </div>
+        </div>
+    </a>
+    {% endfor %}
+   </div>
+   {% endif %}
+  <!--end of personal recommendation-->
+  <!--start of carousel container -->
+  </div>
     <!-- footer -->
     {% block footer %}
     <footer class="page-footer cyan darken-4">

@@ -1,6 +1,6 @@
 $(document).ready(function(){
     //manage carousel
-    $('#toprated, #lastyear, #recent').carousel({
+    $('#toprated, #lastyear, #recent, #locked').carousel({
     	dist: -30
     });
 	$('#toprated').carousel('next');

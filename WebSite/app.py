@@ -34,8 +34,8 @@ def index():
 	toprated = json.loads(moviequery.get_toprated(30))
 	favourite_last_year = json.loads(moviequery.get_favourite_from_year(2015, 30))
 	recent_release = json.loads(moviequery.get_recent_release(30))
-	
-	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release)
+	freq = [1, 2, 3, 4, 5]
+	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq)
 
 
 @app.route('/login')
