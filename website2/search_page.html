@@ -6,12 +6,16 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
       <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
       <style>
         html{
           font-family: 'Raleway', sans-serif;
-          background-color: #EDEFED;
+          /*background-color: #EDEFED;*/
+        }
+        nav{
+          background-color: #EDF4ED;
         }
         h3{
           font-weight: bold;
@@ -78,6 +82,7 @@
           height: 155px;
           margin-bottom: 10px;
           margin-top: 10px;
+          background-color: #F9F9F9;
         }
         .movie-img{
           height: 100%;
@@ -99,27 +104,30 @@
           bottom: 143px;
           width: 1035px;
         }
-
+        .brand-logo{
+          font-weight: bold;
+          font-family: 'Anton', sans-serif;
+        }
       </style>
     </head>
 
     <body>
     	<!--       navigation -->
-      <nav class = "white z-depth-1">
+      <nav class = "#EDF4ED z-depth-1">
         <div class="nav-wrapper container">
-          <a href="#" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
+          <a href="#" class="left brand-logo green-text text-darken-3">MovieHub</a>
 
           <ul id="nav-mobile" class="hide-on-med-and-down option left-nav">
-            <li><a href="sass.html" class = "cyan-text text-darken-4">Recommend</a></li>
-            <li><a href="badges.html" class = "cyan-text text-darken-4" >Game</a></li>
+            <li><a href="sass.html" class = "green-text text-darken-3">Recommend</a></li>
+            <li><a href="badges.html" class = "green-text text-darken-3" >Game</a></li>
           </ul>
 <!--           new code -->
           <form method="get" action="/search" id="search">
             <input name="q" id = "searchinput" type="text" size="40" />
           </form>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="sass.html" class = "cyan-text text-darken-4">FAQ</a></li>
-            <li><a href="collapsible.html" class = "cyan-text text-darken-4">Login In</a></li>
+            <li><a href="sass.html" class = "green-text text-darken-3">FAQ</a></li>
+            <li><a href="collapsible.html" class = "green-text text-darken-3">Login In</a></li>
           </ul>
         </div>
       </nav>
@@ -153,7 +161,30 @@
           </ul>
           <p class = "description">Things are different for the Pontipee men now that big brother Adam's fetched a bride and brought her to their cabin. Indeed, the unwed brothers are so inspired they raid the town and carry off brides of their own!</p>
         </div>
+        <div class="divider"></div>
+        <div class = "movie">
+          <img class = "movie-img" src="https://image.tmdb.org/t/p/w154/42uIMPDWlJLexVGhj7zXYP1fchQ.jpg">
+          <h5 class = "title">Seven Brides for Seven Brothers</h5>
 
+          <ul class = "movie-info">
+              <li class = "info">1954</li>
+              <li class = "info">102min</li>
+              <li class = "info">Comedy, Drama, Western, Music</li>
+          </ul>
+          <p class = "description">Things are different for the Pontipee men now that big brother Adam's fetched a bride and brought her to their cabin. Indeed, the unwed brothers are so inspired they raid the town and carry off brides of their own!</p>
+        </div>
+        <div class="divider"></div>
+        <div class = "movie">
+          <img class = "movie-img" src="https://image.tmdb.org/t/p/w154/42uIMPDWlJLexVGhj7zXYP1fchQ.jpg">
+          <h5 class = "title">Seven Brides for Seven Brothers</h5>
+
+          <ul class = "movie-info">
+              <li class = "info">1954</li>
+              <li class = "info">102min</li>
+              <li class = "info">Comedy, Drama, Western, Music</li>
+          </ul>
+          <p class = "description">Things are different for the Pontipee men now that big brother Adam's fetched a bride and brought her to their cabin. Indeed, the unwed brothers are so inspired they raid the town and carry off brides of their own!</p>
+        </div>
       </div>
 
     </body>
