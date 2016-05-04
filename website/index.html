@@ -24,7 +24,10 @@
         $(document).ready(function(){
           $('.carousel').carousel();
           $('.carousel').carousel({full_width: true});
-          $(".rateYo").rateYo({rating: 3.6});
+            $(".rateYo").rateYo({
+              rating: 3.2,
+              readOnly: true
+            });
           $('.single-item').slick({
             slidesToShow: 6,
             slidesToScroll: 1,
