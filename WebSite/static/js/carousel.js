@@ -8,7 +8,7 @@ $(document).ready(function(){
     genre_str = genre_str.substring(0, genre_str.length - 1)
     console.log(genre_str)
     $('#toprated, #lastyear, #recent, #locked,' + genre_str).carousel({
-    	dist: -30
+    	dist: -20
     });
 
 	$('#toprated').carousel('next');

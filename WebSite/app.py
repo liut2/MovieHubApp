@@ -108,4 +108,4 @@ def pop_login_session():
 	#session["alread_signup"] = None
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, host="localhost", port=5000)
