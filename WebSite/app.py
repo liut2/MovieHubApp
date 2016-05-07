@@ -60,10 +60,26 @@ def index():
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list)
 
 
-@app.route("/search/<word>")
-def search(word):
-	search_result = json.loads(moviequery.get_movies_containing_title(word))
-	return render_template("search_page.html",word=word,search_result = search_result)
+@app.route("/search")
+def search():
+	string = request.args.get("query").lower()
+	search_result = json.loads(moviequery.get_movies_containing_title(string))
+	return render_template("search_page.html",word=string,search_result = search_result)
+
+@app.route("/toprated")
+def toprated():
+	toprated = json.loads(moviequery.get_toprated(250))
+	return render_template("search_page.html",word="Top Rated",search_result = toprated)
+
+@app.route("/recentrelease")
+def recentrelease():
+	recentrelease = json.loads(moviequery.get_favourite_from_year(2016, 100))
+	return render_template("search_page.html",word="Recent release",search_result = recentrelease)
+
+@app.route("/favoritelastyear")
+def favoritelastyear():
+	favoritelastyear = json.loads(moviequery.get_favourite_from_year(2015, 250))
+	return render_template("search_page.html",word="Favorite from Last Year",search_result = favoritelastyear)
 
 
 @app.route('/login')

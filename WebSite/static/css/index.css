@@ -1,6 +1,10 @@
 .modal-body {
 	height: 1000px;
 }
+.brand-logo{
+  font-weight: bold;
+  font-family: 'Anton', sans-serif;
+}
 html{
   font-family: 'Raleway', sans-serif;
 }
@@ -42,8 +46,15 @@ h3{
   margin-top: -80px;
   margin-bottom: -20px;
 }
-
-
-
-
-
+#search {
+  position: relative;
+  left:200px;
+  top:5px;
+}
+form{
+  display: inline-block;
+}
+#searchinput{
+  height: 18px;
+  color:black;
+}

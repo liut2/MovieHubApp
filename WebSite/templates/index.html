@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   {% block head %}
+  <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
   <!--Import Google Icon Font-->
-  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="../static/css/materialize.css"  media="screen,projection"/>
   <link href='https://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
@@ -23,12 +24,11 @@
   {% block navbar %}
   <nav class = "white z-depth-1">
     <div class="nav-wrapper container">
-      <a href="#" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
-
-      <ul id="nav-mobile" class="hide-on-med-and-down option left-nav">
-        <li class="active"><a href="#" class = "cyan-text text-darken-4">Recommendations</a></li>
-        <li><a href="#" class = "cyan-text text-darken-4" >Game & Fun</a></li>
-      </ul>
+      <a href="/" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
+      <form method="get" action="/search" id="search">
+        <input name="query" id = "searchinput" type="text" size="40" placeholder = "Search"/>
+<!--         <i class="material-icons">search</i> -->
+      </form>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if not session.logged_in %}
           <li id="auto-trigger"><a id="signup-modal" class = "cyan-text text-darken-4 modal-trigger" href="#modal1" >Login</a></li>
@@ -45,7 +45,7 @@
   <div class = "container">
     <div>
       <h3 class = "cyan-text text-darken-4">Top Rated</h3>
-      <a class="waves-effect waves-light btn button">See More</a>
+      <a class="waves-effect waves-light btn button" href= "/toprated">See More</a>
     </div>
   </div>
   <!--start of carousel container -->
@@ -54,7 +54,7 @@
     <a class="carousel-item" href="#toprated">
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="{{movie.img_path}}">
+              <img class="activator" src="{{movie.img_path}}">
           </div>
         </div>
     </a>
@@ -68,7 +68,7 @@
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Favorite from Last Year</h3>
-      <a class="waves-effect waves-light btn button">See More</a>
+      <a class="waves-effect waves-light btn button" href = "/favoritelastyear">See More</a>
     </div> 
   </div>
    <!--start of carousel container -->
@@ -93,7 +93,7 @@
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Recent Release</h3>
-      <a class="waves-effect waves-light btn button">See More</a>
+      <a class="waves-effect waves-light btn button" href = "/recentrelease">See More</a>
     </div>
   <!--start of carousel container -->
   </div>
@@ -150,6 +150,7 @@
       </div>
       {% endfor %}
    {% endif %}
+   {% endblock %}
   <!--end of personal recommendation-->
 
   <!--start of carousel container -->
@@ -179,7 +180,7 @@
     </footer>
     {% endblock %}
 
-
+    {% block modal %}
     <!-- start of modal 1, login form-->
     <div id="modal1" class="modal">
     <div class="modal-content">
@@ -338,6 +339,6 @@
     </script>
     <!--end of js code-->
     {% endif %}
-{% endblock %}
+    {% endblock %}
 </body>
 </html>

@@ -1,6 +1,10 @@
 html{
   font-family: 'Raleway', sans-serif;
 }
+.brand-logo{
+  font-weight: bold;
+  font-family: 'Anton', sans-serif;
+}
 nav{
   background-color: #EDF4ED;
 }
@@ -63,6 +67,7 @@ h5{
   position: relative;
   left: 155px;
   bottom: 120px;
+  width:1000px;
 }
 .tag-container{
   display: inline-block;
@@ -75,3 +80,25 @@ h5{
   bottom:125px;
   left:150px;
 }
+
+a.info{
+  color:black;
+  position: relative;
+  top:2px;
+}
+h6{
+  display: inline;
+}
+#search {
+  position: relative;
+  left:200px;
+  top:5px;
+}
+form{
+  display: inline-block;
+}
+#searchinput{
+  height: 18px;
+  color:black;
+}
+
