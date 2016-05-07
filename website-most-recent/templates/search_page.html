@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 {% extends "index.html" %}
+
 <head>
 	{% block myhead %}	
 	<link rel="stylesheet" type="text/css" href="../static/css/search_page.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.css">
 	{% endblock %}	
 </head>
+
 <body>
   {% block title %}	
   <div class = "container">
@@ -15,7 +17,7 @@
   </div>
   {% endblock %}
 
-{% block content %}
+  {% block content %}
   <div class = "container">
   	<h5>Results for</h5>
   	<h5 id = "search-content">{{word}}</h5>
@@ -43,6 +45,7 @@
   	</div>
     <div class="divider"></div>
     {% endfor %}
+  </div>
 
 
 
@@ -59,6 +62,9 @@
     });
   </script>
 
+{% endblock %}
+
+{% block modal %}
 {% endblock %}
 </body>
 </html>

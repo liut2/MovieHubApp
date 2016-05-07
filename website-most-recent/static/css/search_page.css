@@ -67,6 +67,7 @@ h5{
   position: relative;
   left: 155px;
   bottom: 120px;
+  width:1000px;
 }
 .tag-container{
   display: inline-block;

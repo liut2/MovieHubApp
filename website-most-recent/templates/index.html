@@ -150,6 +150,7 @@
       </div>
       {% endfor %}
    {% endif %}
+   {% endblock %}
   <!--end of personal recommendation-->
 
   <!--start of carousel container -->
@@ -179,7 +180,7 @@
     </footer>
     {% endblock %}
 
-
+    {% block modal %}
     <!-- start of modal 1, login form-->
     <div id="modal1" class="modal">
     <div class="modal-content">
@@ -338,6 +339,6 @@
     </script>
     <!--end of js code-->
     {% endif %}
-{% endblock %}
+    {% endblock %}
 </body>
 </html>
