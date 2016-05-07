@@ -7,14 +7,12 @@
 1. Search Bar的submit button
 
 2. Pagination
-
-3. Footer for search-page
  
-4. Coding Style
+3. Coding Style
 
-5. Expired Image
+4. Expired Image
 
-6. Description显示有点bug
+5. Description显示有点bug
 
 其他：
 
