@@ -16,6 +16,6 @@
 
 6. Description显示有点bug
 
-7. Carousal从第一开始显示
+其他：
 
-8. 增添2016 movies，注意一下需要重新create table，因为跟之前的数据不太一样
+已增添新数据，在utf8里，你可以删除以前数据导入最新cvs
