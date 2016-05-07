@@ -10,9 +10,7 @@
  
 3. Coding Style
 
-4. Expired Image
-
-5. Description显示有点bug
+4. Description显示有点bug
 
 其他：
 
