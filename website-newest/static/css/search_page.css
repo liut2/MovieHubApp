@@ -1,0 +1,104 @@
+html{
+  font-family: 'Raleway', sans-serif;
+}
+.brand-logo{
+  font-weight: bold;
+  font-family: 'Anton', sans-serif;
+}
+nav{
+  background-color: #EDF4ED;
+}
+h3{
+  font-weight: bold;
+  margin: 50px 0px 0px 0px;
+  display: inline-block;
+}
+.searchnav{
+  width:40%;
+  padding: 0px;
+  margin-left:0px;
+  position: relative;
+  left:400px;
+}
+.left-nav{
+  position: relative;
+  left:180px;
+}
+h5{
+	position: relative;
+	margin-top: 30px;
+	display: inline-block;
+}
+#search-content{
+	font-weight: bold;
+}
+
+.movie-list{
+	margin-top: 30px;
+}
+
+.title{
+	position: relative;
+	bottom: 133px;
+	left:50px;
+}
+.movie{
+  height: 155px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background-color: #F9F9F9;
+}
+.movie-img{
+  height: 100%;
+  width:8%;
+}
+.movie-info{
+  display:inline;
+  position: relative;
+  bottom:170px;
+  float:right;
+  margin-right: 10px;
+}
+.info{
+  display: inline-block;
+  margin-right:40px;
+}
+.description{
+  position: relative;
+  left: 155px;
+  bottom: 120px;
+  width:1000px;
+}
+.tag-container{
+  display: inline-block;
+}
+.chip{
+  margin-right:3px;
+}
+.star{
+  position: relative;
+  bottom:125px;
+  left:150px;
+}
+
+a.info{
+  color:black;
+  position: relative;
+  top:2px;
+}
+h6{
+  display: inline;
+}
+#search {
+  position: relative;
+  left:200px;
+  top:5px;
+}
+form{
+  display: inline-block;
+}
+#searchinput{
+  height: 18px;
+  color:black;
+}
+
