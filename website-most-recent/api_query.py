@@ -19,7 +19,7 @@ class MovieQuery:
 	def get_recent_release(self, first_n):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		cursor.execute('''select * from movies where release_year = 2016 limit %d;''' % (first_n))
+		cursor.execute('''select * from movies where release_year = 2016 order by weighted desc limit %d;''' % (first_n))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
