@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "index.html" %}
+<head>
+	{% block myhead %}	
+	<link rel="stylesheet" type="text/css" href="../static/css/search_page.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.css">
+	{% endblock %}	
+</head>
+<body>
+  {% block title %}	
+  <div class = "container">
+  	<h5 class = "keyword">Results for</h5>
+  	<h5 class= "keyword" id = "search-content">"Meow"</h5>
+  </div>
+  {% endblock %}
+
+{% block content %}
+  <div class = "container">
+  	<h5>Results for</h5>
+  	<h5 id = "search-content">{{word}}</h5>
+  </div>
+
+  <div class = "container movie-list">
+    {% for movie in search_result %}
+  	<div class = "movie">
+  		<img class = "movie-img" src="{{movie.img_path}}">
+  		<h5 class = "title">{{movie.title}}</h5>
+      <div class = "star" id="{{movie.movie_id}}">{{movie.rating}}</div>
+  		<ul class = "movie-info">
+            <a class = "info" href = "http://www.imdb.com/title/tt{{movie.imdb_id}}">IMDB</a>
+            <li class = "info">{{movie.release_year}}</li>
+            <li class = "info">{{movie.length}}</li>
+          <div class= "tag-container">
+            {% for genre in movie.genres %}
+            <div class="chip">
+              {{genre}}
+            </div>
+            {% endfor %}
+          </div>
+        </ul>
+      <h6 class = "description">{{movie.description}}</h6>
+  	</div>
+    <div class="divider"></div>
+    {% endfor %}
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      {% for movie in search_result %}
+      $("#{{movie.movie_id}}").rateYo({
+        rating: {{movie.rating}},
+        readOnly: true
+      });
+      {% endfor %}
+    });
+  </script>
+
+{% endblock %}
+</body>
+</html>
