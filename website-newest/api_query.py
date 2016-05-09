@@ -2,6 +2,7 @@
 import psycopg2
 import json
 from math import ceil
+import config
 '''
 	api_query.py
 	author: Tao Liu and Xi Chen
@@ -13,8 +14,7 @@ class MovieQuery:
 		pass
 
 	def connect_to_db(self):
-		#connection = psycopg2.connect(database="liut2", user="liut2", password="heart724barn")
-		connection = psycopg2.connect(database="movie_app", user="taoliu")
+		connection = psycopg2.connect(database=config.database, user=config.user)
 		return connection
 
 	def get_recent_release(self, first_n):

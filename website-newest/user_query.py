@@ -28,7 +28,7 @@ class UserQuery:
 	def update_user_preference(self, id, genres, movies):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		'''
+		
 		genre_str = "{"
 		for gen in genres:
 			genre_str += gen.lower() + ","
@@ -38,15 +38,15 @@ class UserQuery:
 		for movie in movies:
 			movie_str += movie.lower() + ","
 		movie_str = movie_str[0:-1] + "}"
-		'''
 		
-		genres = str(map(str, genres))
-		genres = genres.replace('[', '{').replace(']', '}').replace('\'', '\"')
+		
+		#genres = str(map(str, genres))
+		#genres = genres.replace('[', '{').replace(']', '}').replace('\'', '\"')
 
-		movies = str(map(str, movies))
-		movies = movies.replace('[', '{').replace(']', '}').replace('\'', '\"')		
+		#movies = str(map(str, movies))
+		#movies = movies.replace('[', '{').replace(']', '}').replace('\'', '\"')		
 		
-		query = '''update "users" set "selected_genres" = '%s\', "selected_movies" = '%s\' where "user_id" = %d;''' %(genres, movies, id)
+		query = '''update "users" set "selected_genres" = '%s\', "selected_movies" = '%s\' where "user_id" = %d;''' %(genre_str, movie_str, id)
 		cursor.execute(query)
 		connection.commit()
 		connection.close()
