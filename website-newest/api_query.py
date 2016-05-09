@@ -28,7 +28,7 @@ class MovieQuery:
 	def get_recent_release_with_pagination(self, limit, nth_page):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		offset = (nth_page - 1) * 10
+		offset = (nth_page - 1) * limit
 		cursor.execute('''select * from movies where release_year = 2016 order by weighted desc limit %d offset %d;''' % (limit, nth_page))
 		rows = cursor.fetchall()
 		connection.close()
@@ -54,7 +54,7 @@ class MovieQuery:
 	def get_favourite_from_year_with_pagination(self, year, limit, nth_page):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		offset = (nth_page - 1) * 10
+		offset = (nth_page - 1) * limit
 		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d offset %d;''' % (year, limit, nth_page))
 		rows = cursor.fetchall()
 		connection.close()
@@ -80,7 +80,7 @@ class MovieQuery:
 	def get_toprated_with_pagination(self, limit, nth_page):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		offset = (nth_page - 1) * 10
+		offset = (nth_page - 1) * limit
 		cursor.execute('''select * from movies order by weighted desc limit %d offset %d;''' % (limit, offset))
 		rows = cursor.fetchall()
 		connection.close()
@@ -106,7 +106,7 @@ class MovieQuery:
 	def get_toprated_in_genre_with_pagination(self, genre, limit, nth_page):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		offset = (nth_page - 1) * 10
+		offset = (nth_page - 1) * limit
 		cursor.execute('''select * from movies where genres && '{%s}'::varchar(100)[] order by weighted desc limit %d offset %d;''' % (genre, limit, nth_page))
 		rows = cursor.fetchall()
 		connection.close()

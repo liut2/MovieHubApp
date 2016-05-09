@@ -35,13 +35,15 @@ h5{
 
 .movie-list{
 	margin-top: 30px;
+  margin-right: 160px;
+  margin-left: 160px;
 }
 
 .title{
-	position: relative;
-	bottom: 133px;
-	left:50px;
+	margin-top: 10px;
+  padding-left: 20px;
 }
+
 .movie{
   height: 155px;
   margin-bottom: 10px;
@@ -49,8 +51,10 @@ h5{
   background-color: #F9F9F9;
 }
 .movie-img{
-  height: 100%;
-  width:8%;
+  height: 150px;
+  width: 200%;
+  margin-left: -26px;
+  margin-bottom: -123px;
 }
 .movie-info{
   display:inline;
@@ -69,16 +73,22 @@ h5{
   bottom: 120px;
   width:1000px;
 }
-.tag-container{
-  display: inline-block;
-}
+
 .chip{
   margin-right:3px;
 }
 .star{
-  position: relative;
-  bottom:125px;
-  left:150px;
+  margin-top: -20px;
+}
+
+.row .col .second-row .first-col{
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.row .col .second-row .second-col{
+  margin-left: 20px;
+  margin-top: 5px;
 }
 
 a.info{
@@ -103,7 +113,7 @@ form{
 }
 
 .pagination {
-  padding-top: -50px;
+  margin-top: 50px;
   margin-bottom: 20px;
   text-align: center;
 }

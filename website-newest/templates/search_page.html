@@ -13,19 +13,60 @@
 <body>
   {% block title %}	
   <div class = "container">
-  	<h5 class = "keyword">Results for</h5>
+  	<h5 class = "keyword ">Results for</h5>
   	<h5 class= "keyword" id = "search-content">"Meow"</h5>
   </div>
   {% endblock %}
 
   {% block content %}
+  <div id="total-num" class="{{total_page_count}}"></div>
   <div class = "container">
-  	<h5>Results for</h5>
-  	<h5 id = "search-content">{{word}}</h5>
+  	<h5 class="cyan-text text-darken-4">Results for</h5>
+  	<h5 id="search-content" class="cyan-text text-darken-4">{{word}}</h5>
   </div>
 
+  <ul class="collapsible popout movie-list" data-collapsible="accordion">
+    {% for movie in search_result %}
+    <li>
+      <div class="collapsible-header">
+        <div class="row" style="min-height:130px;">
+          <div class="col s1">
+            <img class = "movie-img" src="{{movie.img_path}}" onerror="if (this.src != 'error.jpg') this.src = '../static/img/poster_not_available.jpg';">
+          </div>
+          <div class="col s11">
+            <div class="row">
+              <div class="col s7">
+                <h5 class="title truncate">{{movie.title}}</h5> </div>
+              <div class="col s5">
+                <span style="margin-right: 15px;">{{movie.release_year}}</span>
+                <span style="margin-right: 15px;">{{movie.length}}</span>
+                <span>{{movie.director}}</span>
+              </div>
+            </div>
+            <div class="row second-row">
+              <div class="star col s5 first-col" id="{{movie.movie_id}}">{{movie.rating}}</div>
+              <div class="col s7 second-col push-s1">
+                {% for genre in movie.genres %}
+                <div class="chip" style="float:right">
+                  {{genre}}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-body">
+      <p>Movie Description</p>
+      <p style="margin-top: -30px;">{{movie.description}}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+        
+<!--
   <div class = "container movie-list">
-    <div id="total-num" class="{{total_page_count}}"></div>
+    
     {% for movie in search_result %}
   	<div class = "movie">
   		<img class = "movie-img" src="{{movie.img_path}}" onerror="if (this.src != 'error.jpg') this.src = '../static/img/poster_not_available.jpg';">
@@ -48,13 +89,14 @@
     <div class="divider"></div>
     {% endfor %}
   </div>
+
+-->
   <!--start of the pagination-->
-  <div class="row">
+  <div class="row pagination">
     <div class="col s8 offset-s2">
       <ul id="pagination-demo"></ul>
     </div>
   </div>
-  
   <!--end of the pagination-->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

@@ -66,7 +66,7 @@ def index():
 def search():
 	string = request.args.get("query").lower()
 	search_result = json.loads(moviequery.get_movies_containing_title(string))
-	return render_template("search_page.html",word=string,search_result = search_result)
+	return render_template("search_page.html",word=string,search_result = search_result, total_page_count= 1)
 
 @app.route("/<type>")
 def seemore(type):
