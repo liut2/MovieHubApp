@@ -27,8 +27,9 @@
     {% for movie in search_result %}
   	<div class = "movie">
   		<img class = "movie-img" src="{{movie.img_path}}" onerror="if (this.src != 'error.jpg') this.src = '{{url_for('static', filename='img/poster_not_available.jpg')}}';">
-
-  		<h5 class = "title">{{movie.title}}</h5>
+      <div class = "title-container">
+  		  <h5 class = "title">{{movie.title}}</h5>
+      </div>
       <div class = "star" id="{{movie.movie_id}}">{{movie.rating}}</div>
   		<ul class = "movie-info">
             <a class = "info" href = "http://www.imdb.com/title/tt{{movie.imdb_id}}">IMDB</a>
