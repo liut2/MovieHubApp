@@ -29,7 +29,7 @@ class MovieQuery:
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		offset = (nth_page - 1) * limit
-		cursor.execute('''select * from movies where release_year = 2016 order by weighted desc limit %d offset %d;''' % (limit, nth_page))
+		cursor.execute('''select * from movies where release_year = 2016 order by weighted desc limit %d offset %d;''' % (limit, offset))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
@@ -55,7 +55,7 @@ class MovieQuery:
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		offset = (nth_page - 1) * limit
-		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d offset %d;''' % (year, limit, nth_page))
+		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d offset %d;''' % (year, limit, offset))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
@@ -107,7 +107,7 @@ class MovieQuery:
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		offset = (nth_page - 1) * limit
-		cursor.execute('''select * from movies where genres && '{%s}'::varchar(100)[] order by weighted desc limit %d offset %d;''' % (genre, limit, nth_page))
+		cursor.execute('''select * from movies where genres && '{%s}'::varchar(100)[] order by weighted desc limit %d offset %d;''' % (genre, limit, offset))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
@@ -153,12 +153,8 @@ class MovieQuery:
 if __name__ == "__main__":
 	query = MovieQuery()
 	genres = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax']
-	for gen in genres:
-		row = json.loads(query.get_toprated_in_genre(gen, 1))[0]
-		print gen+ " " + row["title"] + " " + row["img_path"]
-
-		print "  "
-		print " "
+	#print query.get_favourite_from_year_with_pagination(2015, 3, 1)
+	print query.get_favourite_from_year(2015, 3)
 	#print query.get_favourite_from_year_with_page_count(2015, 10)
 	#print query.get_toprated_in_genre_with_page_count('crime', 10)
 	#query.get_recent_release(10)
