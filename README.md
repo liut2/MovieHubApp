@@ -6,7 +6,7 @@
 
 1. Search Bar的submit button
 
-2. Pagination
+2. Search Pagination
  
 3. Coding Style
 
@@ -14,4 +14,4 @@
 
 其他：
 
-已增添新数据，在utf8里，你可以删除以前数据导入最新cvs
+除了search以外，pagination已解决
