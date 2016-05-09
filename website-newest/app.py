@@ -26,40 +26,33 @@ facebook = oauth.remote_app('facebook',
 	request_token_params={'scope': 'email'}
 )
 
-#url_for static files
-#url_for('static/js', filename='materialize.js')
-#url_for('static/css', filename='materialize.css')
+genre_list = []
 
-@app.route("/")
+@app.route("/",methods=['POST', 'GET'])
 def index():
-	genres = request.args.get('genres')
-	movies = request.args.get('movies')
-	genre_list = []
-	toprated_in_genre = {}
-
-	if genres != None:
-		genres = json.loads(genres)
-	if movies != None:
-		movies = json.loads(movies)
-	if genres != None and movies != None:
+	global genre_list
+	
+	if request.method == "POST":
+		response = request.json
 		session["alread_choose_preference"] = True
+		genres = response["selected_genres"]
+		movies = response["selected_movies"]
 		userquery.update_user_preference(int(session["user_id"]), genres, movies)
+		toprated_in_genre = {}
+		for gen in genres:
+			gen = gen.lower()
+			toprated_in_genre["type"] = gen
+			toprated_in_genre["body"] = json.loads(moviequery.get_toprated_in_genre(gen, 30))
+			genre_list.append(toprated_in_genre)
+			toprated_in_genre = {}
+
+		return "success"
 
 	toprated = json.loads(moviequery.get_toprated(30))
 	favourite_last_year = json.loads(moviequery.get_favourite_from_year(2015, 30))
 	recent_release = json.loads(moviequery.get_recent_release(30))
 	freq = [1, 2, 3, 4, 5]
 	
-	if "logged_in" in session and session["logged_in"]:
-		user_obj = json.loads(userquery.find_user_by_id(int(session["user_id"])))
-		genres = user_obj['selected_genres']
-		movies = user_obj['selected_movies']
-		for gen in genres:
-			gen = gen.lower()
-			toprated_in_genre["type"] = gen
-			toprated_in_genre["body"] = json.loads(moviequery.get_toprated_in_genre(gen, 5))
-			genre_list.append(toprated_in_genre)
-			toprated_in_genre = {}
 	#used for genre preference list
 	genre_preference = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax']
 	#used for movie preference list
@@ -72,8 +65,10 @@ def index():
 			if len(title) < 20 and (title not in movie_set):
 				movie_preference.append(rows[i])
 				movie_set.add(title)
-
+	#randomize the order
+	genre_preference = shuffle(genre_preference)
 	movie_preference =  shuffle(movie_preference)
+	
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list, genre_preference = genre_preference, movie_preference = movie_preference)
 
 @app.route("/search")
@@ -156,12 +151,12 @@ def pop_login_session():
 	#session["alread_signup"] = None
 
 def shuffle(arr):
-  	for i in range(len(arr)):
-  		r = random.randrange(len(arr))
-  		temp = arr[i]
-  		arr[i] = arr[r]
-  		arr[r] = temp
-  	return arr
+	for i in range(len(arr)):
+		r = random.randrange(len(arr))
+		temp = arr[i]
+		arr[i] = arr[r]
+		arr[r] = temp
+	return arr
 
 if __name__ == "__main__":
 	app.run(debug=True, host="localhost", port=5000)

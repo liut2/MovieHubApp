@@ -316,16 +316,33 @@
           if (count < 5){
             return;
           }
-          console.log(selected_genres);
-          console.log(selected_movies);
+          //console.log(selected_genres);
+          //console.log(selected_movies);
           $("#modal3").closeModal();
-
-          $.getJSON($SCRIPT_ROOT, {
+          /*
+          $.getJSON("", {
             genres: JSON.stringify(selected_genres),
             movies: JSON.stringify(selected_movies)
           }, function(data){
-            console.log(data.result)
+            console.log("this is data");
+            console.log(data);
           });
+          */
+          var data = {};
+          data["selected_genres"] = selected_genres;
+          data["selected_movies"] = selected_movies;
+
+          $.ajax({
+            type : "POST",
+            url : "{{ url_for('index') }}",
+            data: JSON.stringify(data, null, '\t'),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(result) {
+                console.log(result);
+                location.reload();
+            }
+          });
+      
         });
       })
     </script>
