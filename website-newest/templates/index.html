@@ -26,8 +26,8 @@
     <div class="nav-wrapper container">
       <a href="/" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
       <form method="get" action="/search" id="search">
+        <i class="material-icons">search</i>
         <input name="query" id = "searchinput" type="text" size="40" placeholder = "Search"/>
-<!--         <i class="material-icons">search</i> -->
       </form>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if not session.logged_in %}

@@ -1,13 +1,11 @@
-html{
-  font-family: 'Raleway', sans-serif;
-}
 .brand-logo{
   font-weight: bold;
   font-family: 'Anton', sans-serif;
 }
-nav{
-  background-color: #EDF4ED;
+html{
+  font-family: 'Raleway', sans-serif;
 }
+
 h3{
   font-weight: bold;
   margin: 50px 0px 0px 0px;
@@ -20,9 +18,50 @@ h3{
   position: relative;
   left:400px;
 }
+.button{
+  position:relative;
+  left:20px;
+  bottom: 10px;
+}
+.content{
+  margin-top: 15px;
+}
 .left-nav{
   position: relative;
   left:180px;
+}
+.dis{
+  position: relative;
+  left:25px;
+}
+
+.modal-close{
+  float: right;
+}
+
+.carousel{
+  margin-top: -80px;
+  margin-bottom: -20px;
+}
+#search {
+  position: relative;
+  left:200px;
+  top:5px;
+}
+form{
+  display: inline-block;
+}
+#searchinput{
+  height: 18px;
+  color:black;
+}
+.material-icons{
+  color: black;
+}
+input{
+  position: relative;
+  bottom:63px;
+  left:35px;
 }
 h5{
 	position: relative;
@@ -88,18 +127,6 @@ a.info{
 }
 h6{
   display: inline;
-}
-#search {
-  position: relative;
-  left:200px;
-  top:5px;
-}
-form{
-  display: inline-block;
-}
-#searchinput{
-  height: 18px;
-  color:black;
 }
 
 .pag{
