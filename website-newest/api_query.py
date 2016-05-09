@@ -150,8 +150,15 @@ class MovieQuery:
 		return json.dumps(json_list, indent = 4)
 
 
-#if __name__ == "__main__":
-	#query = MovieQuery()
+if __name__ == "__main__":
+	query = MovieQuery()
+	genres = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax']
+	for gen in genres:
+		row = json.loads(query.get_toprated_in_genre(gen, 1))[0]
+		print gen+ " " + row["title"] + " " + row["img_path"]
+
+		print "  "
+		print " "
 	#print query.get_favourite_from_year_with_page_count(2015, 10)
 	#print query.get_toprated_in_genre_with_page_count('crime', 10)
 	#query.get_recent_release(10)

@@ -1,6 +1,9 @@
 .modal-body {
 	height: 1000px;
 }
+#modal2, #modal3{
+  width: 1000px;
+}
 
 html{
   font-family: 'Raleway', sans-serif;
@@ -47,13 +50,16 @@ h3{
 }
 #search {
   position: relative;
-  left:200px;
+  margin-left:500px;
   top:5px;
+  width: 150px;
 }
 form{
   display: inline-block;
+  width: 150px;
 }
 #searchinput{
   height: 18px;
   color:black;
 }
+

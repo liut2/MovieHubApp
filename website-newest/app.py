@@ -3,6 +3,7 @@ from flask_oauth import OAuth
 from user_query import UserQuery
 from api_query import MovieQuery
 import json
+import random
 
 SECRET_KEY = 'moviehub development key'
 FACEBOOK_APP_ID = '260838524257280'
@@ -59,8 +60,21 @@ def index():
 			toprated_in_genre["body"] = json.loads(moviequery.get_toprated_in_genre(gen, 5))
 			genre_list.append(toprated_in_genre)
 			toprated_in_genre = {}
-	
-	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list)
+	#used for genre preference list
+	genre_preference = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax']
+	#used for movie preference list
+	movie_preference = []
+	movie_set = set()
+	for gen in genre_preference:
+		rows = json.loads(moviequery.get_toprated_in_genre(gen, 4))
+		for i in range(len(rows)):
+			title = rows[i]["title"]
+			if len(title) < 20 and (title not in movie_set):
+				movie_preference.append(rows[i])
+				movie_set.add(title)
+
+	movie_preference =  shuffle(movie_preference)
+	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list, genre_preference = genre_preference, movie_preference = movie_preference)
 
 @app.route("/search")
 def search():
@@ -140,6 +154,14 @@ def pop_login_session():
 	session.pop('user_id', None)
 	session.pop('user_name', None)
 	#session["alread_signup"] = None
+
+def shuffle(arr):
+  	for i in range(len(arr)):
+  		r = random.randrange(len(arr))
+  		temp = arr[i]
+  		arr[i] = arr[r]
+  		arr[r] = temp
+  	return arr
 
 if __name__ == "__main__":
 	app.run(debug=True, host="localhost", port=5000)
