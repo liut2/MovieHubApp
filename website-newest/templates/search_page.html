@@ -51,8 +51,8 @@
 
   <!--start of the pagination-->
   <div class="row pag">
-    <div class="col s8 offset-s4">
-        <ul class="pagination">
+    <div class="col s12">
+        <ul class="pagination center">
           {% if pagination.has_prev %}
             <li class="waves-effect"><a href="/{{type}}/page/{{pagination.page-1}}"><i class="material-icons">chevron_left</i></a></li>
           {% else %}
@@ -61,9 +61,9 @@
           {%- for page in pagination.iter_pages() %}
             {% if page %}
               {% if page != pagination.page %}
-                <li class="waves-effect"><a href="/{{type}}/page/{{page}}">{{page}}</a></li>
+                <li class="waves-effect"><a class = "page-num" href="/{{type}}/page/{{page}}">{{page}}</a></li>
               {% else %}
-                <li class="active cyan darken-4"><a href="/{{type}}/page/{{page}}">{{page}}</a></li>
+                <li class="active cyan darken-4"><a class = "page-num" href="/{{type}}/page/{{page}}">{{page}}</a></li>
               {%- endif %}
             {% else %}
               <span class=ellipsis>…</span>

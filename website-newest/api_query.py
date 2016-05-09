@@ -124,7 +124,7 @@ class MovieQuery:
 	def get_movies_containing_title(self, string):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		cursor.execute('''select * from movies where title::varchar(500) like '%{0}%';'''.format(string))
+		cursor.execute('''select * from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
@@ -132,7 +132,7 @@ class MovieQuery:
 	def get_movies_containing_title_with_count(self, string):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		cursor.execute('''select count(*) from movies where title::varchar(500) like '%{0}%';'''.format(string))		
+		cursor.execute('''select count(*) from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
 		page_count =  cursor.fetchone()[0]
 		connection.close()
 		page_count = int(ceil(page_count))
@@ -142,7 +142,7 @@ class MovieQuery:
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		offset = (page - 1) * 15
-		cursor.execute('''select * from movies where title::varchar(500) like '%{0}%';'''.format(string))
+		cursor.execute('''select * from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
