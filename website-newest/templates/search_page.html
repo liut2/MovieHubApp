@@ -4,7 +4,8 @@
 
 <head>
 	{% block myhead %}	
-	<link rel="stylesheet" type="text/css" href="../static/css/search_page.css" />
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/materialize.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search_page.css')}}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.css">
 	{% endblock %}	
 </head>
@@ -24,6 +25,7 @@
   </div>
 
   <div class = "container movie-list">
+    <div id="total-num" class="{{total_page_count}}"></div>
     {% for movie in search_result %}
   	<div class = "movie">
   		<img class = "movie-img" src="{{movie.img_path}}" onerror="if (this.src != 'error.jpg') this.src = '../static/img/poster_not_available.jpg';">
@@ -45,13 +47,20 @@
   	</div>
     <div class="divider"></div>
     {% endfor %}
-
   </div>
-
-
+  <!--start of the pagination-->
+  <div class="row">
+    <div class="col s8 offset-s2">
+      <ul id="pagination-demo"></ul>
+    </div>
+  </div>
+  
+  <!--end of the pagination-->
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script type="text/javascript" src="../static/js/materialize.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/pagination.js')}}"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/jquery.twbsPagination.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.js"></script>
   <script>
     $(document).ready(function(){

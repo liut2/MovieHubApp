@@ -1,16 +1,15 @@
 .modal-body {
 	height: 1000px;
 }
+
+html{
+  font-family: 'Raleway', sans-serif;
+}
 .brand-logo{
   font-weight: bold;
   font-family: 'Anton', sans-serif;
 }
-html{
-  font-family: 'Raleway', sans-serif;
-}
-
 h3{
-  font-weight: bold;
   margin: 50px 0px 0px 0px;
   display: inline-block;
 }

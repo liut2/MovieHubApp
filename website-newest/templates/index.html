@@ -42,10 +42,10 @@
   <!-- end of navigation bar-->
   <!--start of top rated -->
 {% block content%}
-  <div class = "container">
+  <div class="container">
     <div>
-      <h3 class = "cyan-text text-darken-4">Top Rated</h3>
-      <a class="waves-effect waves-light btn button" href= "/toprated">See More</a>
+      <h3 class="cyan-text text-darken-4">Top Rated</h3>
+      <a class="waves-effect waves-light btn button seemore">See More</a>
     </div>
   </div>
   <!--start of carousel container -->
@@ -68,7 +68,7 @@
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Favorite from Last Year</h3>
-      <a class="waves-effect waves-light btn button" href = "/favoritelastyear">See More</a>
+      <a class="waves-effect waves-light btn button seemore">See More</a>
     </div> 
   </div>
    <!--start of carousel container -->
@@ -78,9 +78,6 @@
       <div class="card">
           <div class="card-image waves-effect waves-block waves-light">
             <img class="activator" src="{{movie.img_path}}">
-            <!--<div style="text-align: center;">
-              <span class="card-title" style="font-size: 15px;">{{movie.title}}</span>
-            </div>-->
           </div>
         </div>
     </a>
@@ -93,7 +90,7 @@
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Recent Release</h3>
-      <a class="waves-effect waves-light btn button" href = "/recentrelease">See More</a>
+      <a class="waves-effect waves-light btn button seemore">See More</a>
     </div>
   <!--start of carousel container -->
   </div>
@@ -112,9 +109,9 @@
    <!--end of recent release -->
    <!--start of personal recommendation-->
    {% if not session.logged_in %}
-  <div class = "container content">
+  <div class="container content">
     <div>
-      <h3 class = "cyan-text text-darken-4">Customized Movies</h3>
+      <h3 class="cyan-text text-darken-4">Customized Movies</h3>
       <a class="waves-effect disabled waves-light btn button">Please Login to See More</a>
     </div>
   </div>
@@ -131,10 +128,10 @@
   </div>
    {% else %}
       {% for genre in genre_list %}
-      <div class = "container content">
+      <div class="container content">
         <div>
-          <h3 class = "cyan-text text-darken-4">{{genre.type.title()}}</h3>
-          <a class="waves-effect waves-light btn button">See More</a>
+          <h3 class="cyan-text text-darken-4">{{genre.type.title()}}</h3>
+          <a class="waves-effect waves-light btn button seemore">See More</a>
         </div>
       </div>
       <div id="{{genre.type}}" class="carousel">
@@ -260,6 +257,7 @@
     <script src="../static/js/carousel.js"></script>
     <script src="../static/js/modal.js"></script>
     <script src="../static/js/image-picker.js"></script>
+    <script src="../static/js/seemore.js"></script>
     <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>

@@ -13,6 +13,7 @@ app.secret_key = SECRET_KEY
 oauth = OAuth()
 userquery = UserQuery()
 moviequery = MovieQuery()
+LIMIT_PER_PAGE = 15
 
 facebook = oauth.remote_app('facebook',
 	base_url='https://graph.facebook.com/',
@@ -24,6 +25,10 @@ facebook = oauth.remote_app('facebook',
 	request_token_params={'scope': 'email'}
 )
 
+#url_for static files
+#url_for('static/js', filename='materialize.js')
+#url_for('static/css', filename='materialize.css')
+
 @app.route("/")
 def index():
 	genres = request.args.get('genres')
@@ -33,7 +38,6 @@ def index():
 
 	if genres != None:
 		genres = json.loads(genres)
-	
 	if movies != None:
 		movies = json.loads(movies)
 	if genres != None and movies != None:
@@ -55,10 +59,8 @@ def index():
 			toprated_in_genre["body"] = json.loads(moviequery.get_toprated_in_genre(gen, 5))
 			genre_list.append(toprated_in_genre)
 			toprated_in_genre = {}
-	print "finally here"
-	print len(genre_list)
+	
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list)
-
 
 @app.route("/search")
 def search():
@@ -66,21 +68,30 @@ def search():
 	search_result = json.loads(moviequery.get_movies_containing_title(string))
 	return render_template("search_page.html",word=string,search_result = search_result)
 
-@app.route("/toprated")
-def toprated():
-	toprated = json.loads(moviequery.get_toprated(250))
-	return render_template("search_page.html",word="Top Rated",search_result = toprated)
+@app.route("/<type>")
+def seemore(type):
+	nth_page = int(request.args.get("page"))
+	if type == "toprated":
+		toprated = json.loads(moviequery.get_toprated_with_pagination(LIMIT_PER_PAGE, nth_page))
+		total_page_count = moviequery.get_toprated_with_page_count(LIMIT_PER_PAGE)
+		return render_template("search_page.html",word="Top Rated", search_result = toprated, total_page_count = total_page_count)
 
-@app.route("/recentrelease")
-def recentrelease():
-	recentrelease = json.loads(moviequery.get_favourite_from_year(2016, 100))
-	return render_template("search_page.html",word="Recent release",search_result = recentrelease)
+	elif type == "recentrelease":
+		recentrelease = json.loads(moviequery.get_favourite_from_year_with_pagination(2016, LIMIT_PER_PAGE, nth_page))
+		total_page_count = moviequery.get_favourite_from_year_with_page_count(2016, LIMIT_PER_PAGE)
+		return render_template("search_page.html",word="Recent release", search_result = recentrelease, total_page_count = total_page_count)
 
-@app.route("/favoritelastyear")
-def favoritelastyear():
-	favoritelastyear = json.loads(moviequery.get_favourite_from_year(2015, 250))
-	return render_template("search_page.html",word="Favorite from Last Year",search_result = favoritelastyear)
+	elif type == "favoritefromlastyear":
+		favoritefromlastyear = json.loads(moviequery.get_favourite_from_year_with_pagination(2015, LIMIT_PER_PAGE, nth_page))
+		total_page_count = moviequery.get_favourite_from_year_with_page_count(2015, LIMIT_PER_PAGE)
+		return render_template("search_page.html",word="Favorite from Last Year", search_result = favoritefromlastyear, total_page_count = total_page_count)
 
+	else:
+		#genre_set = set(['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax'])
+		genre = json.loads(moviequery.get_toprated_in_genre_with_pagination(type.lower(), LIMIT_PER_PAGE, nth_page))
+		total_page_count = moviequery.get_toprated_in_genre_with_page_count(type.lower(), LIMIT_PER_PAGE)
+		return render_template("search_page.html",word=type.title(), search_result = genre, total_page_count = total_page_count)
+	
 
 @app.route('/login')
 def login():
