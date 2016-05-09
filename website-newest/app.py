@@ -3,10 +3,11 @@ from flask_oauth import OAuth
 from user_query import UserQuery
 from api_query import MovieQuery
 import json
-
+from Pagination import Pagination
 SECRET_KEY = 'moviehub development key'
 FACEBOOK_APP_ID = '260838524257280'
 FACEBOOK_APP_SECRET = 'a0210b8252d9590f8bd7c1bbb645782c'
+PER_PAGE = 15
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -59,27 +60,54 @@ def index():
 	print len(genre_list)
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list)
 
-
-@app.route("/search")
-def search():
+@app.route("/search",defaults={'page': 1})
+@app.route("/search/page/<int:page>")
+def search(page):
 	string = request.args.get("query").lower()
-	search_result = json.loads(moviequery.get_movies_containing_title(string))
-	return render_template("search_page.html",word=string,search_result = search_result)
+	search_result = json.loads(moviequery.get_movies_containing_title_for_page(string,page,15))
+	if (not toprated and page !=1):
+		print("not found")
+		return render_template("404.html")
+	else:
+		count = moviequery.get_movies_containing_title_with_count(string)
+		pagination = Pagination(page, PER_PAGE, count)
+		return render_template("search_page.html",type = "toprated",word=string,search_result = search_result,pagination = pagination)
 
-@app.route("/toprated")
-def toprated():
-	toprated = json.loads(moviequery.get_toprated(250))
-	return render_template("search_page.html",word="Top Rated",search_result = toprated)
+@app.route("/toprated",defaults={'page': 1})
+@app.route('/toprated/page/<int:page>')
+def toprated(page):
+	toprated = json.loads(moviequery.get_toprated_for_page(page,15))
+	if (not toprated and page !=1):
+		print("not found")
+		return render_template("404.html")
+	else:
+		count = moviequery.get_toprated_with_count()
+		pagination = Pagination(page, PER_PAGE, count)
+		return render_template("search_page.html",type = "toprated",word="Top Rated",search_result = toprated, pagination = pagination)
 
-@app.route("/recentrelease")
-def recentrelease():
-	recentrelease = json.loads(moviequery.get_favourite_from_year(2016, 100))
-	return render_template("search_page.html",word="Recent release",search_result = recentrelease)
+@app.route("/recentrelease",defaults={'page': 1})
+@app.route('/recentrelease/page/<int:page>')
+def recentrelease(page):
+	recentrelease = json.loads(moviequery.get_favourite_from_year_for_page(2016,page,15))
+	if (not recentrelease and page !=1):
+		print("not found")
+		return render_template("404.html")
+	else:
+		count = moviequery.get_recent_release_with_count()
+		pagination = Pagination(page, PER_PAGE, count)
+		return render_template("search_page.html",type = "recentrelease",word="Recent release",search_result = recentrelease,pagination=pagination)
 
-@app.route("/favoritelastyear")
-def favoritelastyear():
-	favoritelastyear = json.loads(moviequery.get_favourite_from_year(2015, 250))
-	return render_template("search_page.html",word="Favorite from Last Year",search_result = favoritelastyear)
+@app.route("/favoritelastyear",defaults={'page': 1})
+@app.route('/favoritelastyear/page/<int:page>')
+def favoritelastyear(page):
+	favoritelastyear = json.loads(moviequery.get_favourite_from_year_for_page(2015,page,15))
+	if (not favoritelastyear and page !=1):
+		print("not found")
+		return render_template("404.html")
+	else:
+		count = moviequery.get_favourite_from_year_count(2015)
+		pagination = Pagination(page, PER_PAGE, count)
+		return render_template("search_page.html",type = "favoritelastyear",word="Favorite from Last Year",search_result = favoritelastyear,pagination= pagination)
 
 
 @app.route('/login')
@@ -129,6 +157,11 @@ def pop_login_session():
 	session.pop('user_id', None)
 	session.pop('user_name', None)
 	#session["alread_signup"] = None
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 if __name__ == "__main__":
 	app.run(debug=True, host="localhost", port=5000)

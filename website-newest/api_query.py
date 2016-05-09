@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import psycopg2
 import json
+from math import ceil
 '''
 	api_query.py
 	author: Tao Liu and Xi Chen
@@ -24,6 +25,23 @@ class MovieQuery:
 		connection.close()
 		return self.convert_to_json(rows)
 
+	def get_recent_release_for_page(self, page,PER_PAGE):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		offset = (page - 1) * 15
+		cursor.execute('''select * from movies where release_year = 2016 order by weighted desc limit %d offset %d;''' % (PER_PAGE, offset))
+		rows = cursor.fetchall()
+		connection.close()
+		return self.convert_to_json(rows)
+
+	def get_recent_release_with_count(self):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		cursor.execute('''select count(*) from movies where release_year = 2016;''')
+		page_count =  cursor.fetchone()[0]
+		connection.close()
+		page_count = int(ceil(page_count))
+		return page_count
 
 	def get_favourite_from_year(self, year, first_n):
 		connection = self.connect_to_db()
@@ -33,10 +51,46 @@ class MovieQuery:
 		connection.close()
 		return self.convert_to_json(rows)
 
+	def get_favourite_from_year_count(self, year):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		cursor.execute('''select count(*) from movies where release_year = %d;''' % (year))
+		page_count =  cursor.fetchone()[0]
+		connection.close()
+		page_count = int(ceil(page_count))
+		return page_count
+
+	def get_favourite_from_year_for_page(self, year,page,PER_PAGE):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		offset = (page - 1) * 15
+		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d offset %d;''' % (year,PER_PAGE, offset))
+		rows = cursor.fetchall()
+		connection.close()
+		return self.convert_to_json(rows)
+
+	def get_toprated_with_count(self):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		cursor.execute('''select count(*) from movies;''')
+		page_count =  cursor.fetchone()[0]
+		connection.close()
+		page_count = int(ceil(page_count))
+		return page_count
+
 	def get_toprated(self, first_n):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		cursor.execute('''select * from movies order by weighted desc limit %d;''' % (first_n))
+		rows = cursor.fetchall()
+		connection.close()
+		return self.convert_to_json(rows)
+
+	def get_toprated_for_page(self, page,PER_PAGE):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		offset = (page - 1) * 15
+		cursor.execute('''select * from movies order by weighted desc limit %d offset %d;''' % (PER_PAGE, offset))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
@@ -49,9 +103,45 @@ class MovieQuery:
 		connection.close()
 		return self.convert_to_json(rows)
 
+	def get_toprated_in_gener_for_page(self, page,PER_PAGE):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		offset = (page - 1) * 15
+		cursor.execute('''select * from movies where genres && '{%s}'::varchar(100)[] order by weighted desc limit %d offset %d;''' % (PER_PAGE, offset))
+		rows = cursor.fetchall()
+		connection.close()
+		return self.convert_to_json(rows)
+
+	def get_toprated_in_genre_with_count(self, genre):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		cursor.execute('''select count(*) from movies where genres && '{%s}'::varchar(100)[];''' % (genre))
+		page_count =  cursor.fetchone()[0]
+		connection.close()
+		page_count = int(ceil(page_count))
+		return page_count
+
 	def get_movies_containing_title(self, string):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
+		cursor.execute('''select * from movies where title::varchar(500) like '%{0}%';'''.format(string))
+		rows = cursor.fetchall()
+		connection.close()
+		return self.convert_to_json(rows)
+
+	def get_movies_containing_title_with_count(self, string):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		cursor.execute('''select count(*) from movies where title::varchar(500) like '%{0}%';'''.format(string))		
+		page_count =  cursor.fetchone()[0]
+		connection.close()
+		page_count = int(ceil(page_count))
+		return page_count
+
+	def get_movies_containing_title_for_page(self,string,page,PER_PAGE):
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		offset = (page - 1) * 15
 		cursor.execute('''select * from movies where title::varchar(500) like '%{0}%';'''.format(string))
 		rows = cursor.fetchall()
 		connection.close()

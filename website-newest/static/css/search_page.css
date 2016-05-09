@@ -102,3 +102,7 @@ form{
   color:black;
 }
 
+.pag{
+  position: relative;
+  bottom:60px;
+}
