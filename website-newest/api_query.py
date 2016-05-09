@@ -62,7 +62,6 @@ class MovieQuery:
 		page_count = int(ceil(page_count))
 		return page_count
 
-
 	def get_toprated_for_page(self, page,PER_PAGE):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
