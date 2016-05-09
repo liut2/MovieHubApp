@@ -17,14 +17,6 @@ class MovieQuery:
 		connection = psycopg2.connect(database="movie", user="postgres")
 		return connection
 
-	def get_recent_release(self, first_n):
-		connection = self.connect_to_db()
-		cursor = connection.cursor()
-		cursor.execute('''select * from movies where release_year = 2016 order by weighted desc limit %d;''' % (first_n))
-		rows = cursor.fetchall()
-		connection.close()
-		return self.convert_to_json(rows)
-
 	def get_recent_release_for_page(self, page,PER_PAGE):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
@@ -42,14 +34,6 @@ class MovieQuery:
 		connection.close()
 		page_count = int(ceil(page_count))
 		return page_count
-
-	def get_favourite_from_year(self, year, first_n):
-		connection = self.connect_to_db()
-		cursor = connection.cursor()
-		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d;''' % (year, first_n))
-		rows = cursor.fetchall()
-		connection.close()
-		return self.convert_to_json(rows)
 
 	def get_favourite_from_year_count(self, year):
 		connection = self.connect_to_db()
@@ -78,13 +62,6 @@ class MovieQuery:
 		page_count = int(ceil(page_count))
 		return page_count
 
-	def get_toprated(self, first_n):
-		connection = self.connect_to_db()
-		cursor = connection.cursor()
-		cursor.execute('''select * from movies order by weighted desc limit %d;''' % (first_n))
-		rows = cursor.fetchall()
-		connection.close()
-		return self.convert_to_json(rows)
 
 	def get_toprated_for_page(self, page,PER_PAGE):
 		connection = self.connect_to_db()
@@ -132,20 +109,12 @@ class MovieQuery:
 	def get_movies_containing_title_with_count(self, string):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		cursor.execute('''select count(*) from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
+		cursor.execute('''select count(*) from movies where (title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}');'''.format(string))		
 		page_count =  cursor.fetchone()[0]
 		connection.close()
 		page_count = int(ceil(page_count))
 		return page_count
 
-	def get_movies_containing_title_for_page(self,string,page,PER_PAGE):
-		connection = self.connect_to_db()
-		cursor = connection.cursor()
-		offset = (page - 1) * 15
-		cursor.execute('''select * from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
-		rows = cursor.fetchall()
-		connection.close()
-		return self.convert_to_json(rows)
 
 	def convert_to_json(self, rows):
 		json_list = []

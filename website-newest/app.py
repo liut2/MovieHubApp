@@ -41,9 +41,9 @@ def index():
 		session["alread_choose_preference"] = True
 		userquery.update_user_preference(int(session["user_id"]), genres, movies)
 
-	toprated = json.loads(moviequery.get_toprated(30))
-	favourite_last_year = json.loads(moviequery.get_favourite_from_year(2015, 30))
-	recent_release = json.loads(moviequery.get_recent_release(30))
+	toprated = json.loads(moviequery.get_toprated_for_page(1,30))
+	favourite_last_year = json.loads(moviequery.get_favourite_from_year_for_page(2015, 1,30))
+	recent_release = json.loads(moviequery.get_favourite_from_year_for_page(2016,1,30))
 	freq = [1, 2, 3, 4, 5]
 	
 	if "logged_in" in session and session["logged_in"]:
@@ -64,14 +64,12 @@ def index():
 @app.route("/search/page/<int:page>")
 def search(page):
 	string = request.args.get("query").lower()
-	search_result = json.loads(moviequery.get_movies_containing_title_for_page(string,page,15))
-	if (not toprated and page !=1):
-		print("not found")
-		return render_template("404.html")
+	search_result = json.loads(moviequery.get_movies_containing_title(string))
+	pagination = Pagination(page, PER_PAGE, 1)
+	if(not search_result):
+		return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination)
 	else:
-		count = moviequery.get_movies_containing_title_with_count(string)
-		pagination = Pagination(page, PER_PAGE, count)
-		return render_template("search_page.html",type = "toprated",word=string,search_result = search_result,pagination = pagination)
+		return render_template("search_page.html",type = "search",word=string,search_result = search_result,pagination = pagination)
 
 @app.route("/toprated",defaults={'page': 1})
 @app.route('/toprated/page/<int:page>')
