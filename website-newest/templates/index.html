@@ -14,8 +14,8 @@
 
   {% block myhead %}
   <!-- Import other css files -->
-  <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
-  <link rel="stylesheet" type="text/css" href="../static/css/image-picker.css" />
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/image-picker.css')}}" />
   {% endblock %}
 </head>
 
