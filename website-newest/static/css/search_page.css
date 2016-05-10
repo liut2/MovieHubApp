@@ -71,6 +71,8 @@ input{
 }
 #search-content{
 	font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .movie-list{
@@ -134,7 +136,8 @@ h6{
 
 .pag{
   position: relative;
-  bottom:60px;
+  bottom:50px;
+
 }
 a.page-num{
   display: inline-block;

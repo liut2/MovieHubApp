@@ -48,7 +48,8 @@
     <div class="divider"></div>
     {% endfor %}
 
-
+  </div>
+  {% if empty == True %}
   <!--start of the pagination-->
   <div class="row pag">
     <div class="col s12">
@@ -77,10 +78,11 @@
         </ul>
     </div>
   </div>
+  {% else %}
+  {% endif %}
   
   <!--end of the pagination-->
 
-  </div>
 
 
 

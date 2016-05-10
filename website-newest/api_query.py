@@ -135,11 +135,3 @@ class MovieQuery:
 			json_list.append(json_record)
 		return json.dumps(json_list, indent = 4)
 
-
-#if __name__ == "__main__":
-	#query = Query()
-	#query.get_recent_release(10)
-	#query.get_favourite_from_year(2015, 10)
-	#query.get_toprated(10)
-	#query.get_toprated_in_genre("Crime", 10)
-	#query.get_movies_containing_title("father")

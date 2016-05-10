@@ -14,6 +14,7 @@ app.secret_key = SECRET_KEY
 oauth = OAuth()
 userquery = UserQuery()
 moviequery = MovieQuery()
+query = MovieQuery()
 
 facebook = oauth.remote_app('facebook',
 	base_url='https://graph.facebook.com/',
@@ -56,56 +57,56 @@ def index():
 			toprated_in_genre["body"] = json.loads(moviequery.get_toprated_in_genre(gen, 5))
 			genre_list.append(toprated_in_genre)
 			toprated_in_genre = {}
-	print "finally here"
-	print len(genre_list)
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = freq, genre_list = genre_list)
 
 @app.route("/search",defaults={'page': 1})
 @app.route("/search/page/<int:page>")
 def search(page):
+	empty = True
 	string = request.args.get("query").lower()
 	search_result = json.loads(moviequery.get_movies_containing_title(string))
 	pagination = Pagination(page, PER_PAGE, 1)
 	if(not search_result):
-		return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination)
+		empty = False
+		return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination,empty = empty)
 	else:
-		return render_template("search_page.html",type = "search",word=string,search_result = search_result,pagination = pagination)
+		return render_template("search_page.html",type = "search",word=string,search_result = search_result,pagination = pagination,empty = empty)
 
 @app.route("/toprated",defaults={'page': 1})
 @app.route('/toprated/page/<int:page>')
 def toprated(page):
+	empty = True
 	toprated = json.loads(moviequery.get_toprated_for_page(page,15))
 	if (not toprated and page !=1):
-		print("not found")
 		return render_template("404.html")
 	else:
 		count = moviequery.get_toprated_with_count()
 		pagination = Pagination(page, PER_PAGE, count)
-		return render_template("search_page.html",type = "toprated",word="Top Rated",search_result = toprated, pagination = pagination)
+		return render_template("search_page.html",type = "toprated",word="Top Rated",search_result = toprated, pagination = pagination,empty = empty)
 
 @app.route("/recentrelease",defaults={'page': 1})
 @app.route('/recentrelease/page/<int:page>')
 def recentrelease(page):
+	empty = True
 	recentrelease = json.loads(moviequery.get_favourite_from_year_for_page(2016,page,15))
 	if (not recentrelease and page !=1):
-		print("not found")
 		return render_template("404.html")
 	else:
 		count = moviequery.get_recent_release_with_count()
 		pagination = Pagination(page, PER_PAGE, count)
-		return render_template("search_page.html",type = "recentrelease",word="Recent release",search_result = recentrelease,pagination=pagination)
+		return render_template("search_page.html",type = "recentrelease",word="Recent release",search_result = recentrelease,pagination=pagination,empty = empty)
 
 @app.route("/favoritelastyear",defaults={'page': 1})
 @app.route('/favoritelastyear/page/<int:page>')
 def favoritelastyear(page):
+	empty = True
 	favoritelastyear = json.loads(moviequery.get_favourite_from_year_for_page(2015,page,15))
 	if (not favoritelastyear and page !=1):
-		print("not found")
 		return render_template("404.html")
 	else:
 		count = moviequery.get_favourite_from_year_count(2015)
 		pagination = Pagination(page, PER_PAGE, count)
-		return render_template("search_page.html",type = "favoritelastyear",word="Favorite from Last Year",search_result = favoritelastyear,pagination= pagination)
+		return render_template("search_page.html",type = "favoritelastyear",word="Favorite from Last Year",search_result = favoritelastyear,pagination= pagination,empty = empty)
 
 
 @app.route('/login')
@@ -156,10 +157,45 @@ def pop_login_session():
 	session.pop('user_name', None)
 	#session["alread_signup"] = None
 
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+@app.route('/api/v1.0/topratedmovies/<int:first_n>')
+#Returns a list of first n movies with top ratings.
+def get_toprated(first_n):
+	if first_n >= 0 and first_n < 10000:
+		return query.get_toprated_for_page(1,first_n)
+	return "Please enter a valid url for toprated movies query."
+
+@app.route('/api/v1.0/<int:year>/toppicks/<int:first_n>')
+#Returns a list of first n movies with top ratings in a given year.
+def get_favourite_from_year(year, first_n):
+	if year >= 1970 and year <= 2016 and first_n >= 0 and first_n < 10000:
+		return query.get_favourite_from_year_for_page(year, 1,first_n)
+	return "Please enter a valid url for get favourite movies from year query."
+
+@app.route('/api/v1.0/recentrelease/<int:first_n>')
+#Returns a list of first n movies in recent release.
+def get_recent_release(first_n):
+	if first_n >= 0 and first_n < 10000:
+		return query.get_favourite_from_year_for_page(2016,1,first_n)
+	return "Please enter a valid url for recent release query."
+
+@app.route('/api/v1.0/<genre>/<int:first_n>')
+#Returns a list of first n movies with top ratings in a given genre.
+def get_toprated_in_genre(genre, first_n):
+	genre = genre.lower()
+	genre_set = set(['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax'])
+	if first_n >= 0 and first_n < 10000 and (genre in genre_set):
+		return query.get_toprated_in_genre(genre, first_n)
+	return "Please enter a valid url for get toprated in genre query."
+
+@app.route('/api/v1.0/titlecontains')
+#Returns a list of movies whose title contain the given string.
+def get_movies_containing_title():
+	string = request.args.get("query")
+	return query.get_movies_containing_title(string)
 
 if __name__ == "__main__":
 	app.run(debug=True, host="localhost", port=5000)
