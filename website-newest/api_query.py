@@ -3,12 +3,24 @@ import psycopg2
 import json
 from math import ceil
 import string
+import re
 '''
 	api_query.py
 	author: Tao Liu and Xi Chen
 	This Query class wraps the details of the API query for api.py, which will call methods
 	implemented in api_query.py.
 '''
+
+def titlecase(s):
+	s = re.sub(r"[A-Za-z]+('[A-Za-z]+)?",
+              lambda mo: mo.group(0)[0].upper() +
+                          mo.group(0)[1:].lower(),s)
+	s = s.split(" ")
+	for i in range(len(s)):
+		if (s[i] in "Ii Iii Iv Vi Vii Viii Ix Ii: Iii: Iv: Vi: Vii: Viii: Ix:"):
+			s[i] = s[i].upper()
+	return " ".join(s)
+
 class MovieQuery:
 	def __init__(self):
 		pass
@@ -115,13 +127,12 @@ class MovieQuery:
 		page_count = int(ceil(page_count))
 		return page_count
 
-
 	def convert_to_json(self, rows):
 		json_list = []
 		for row in rows:
 			json_record = {}
 			json_record["movie_id"] = row[0]
-			json_record["title"] = string.capwords(row[1])
+			json_record["title"] = titlecase(row[1])
 			json_record["genres"] = row[2]
 			json_record["imdb_id"] = row[3]
 			json_record["tmdb_id"] = row[4]
