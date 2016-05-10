@@ -2,6 +2,7 @@
 import psycopg2
 import json
 from math import ceil
+import string
 '''
 	api_query.py
 	author: Tao Liu and Xi Chen
@@ -48,7 +49,7 @@ class MovieQuery:
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		offset = (page - 1) * 15
-		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d offset %d;''' % (year,PER_PAGE, offset))
+		cursor.execute('''select * from movies where release_year = %d order by weighted desc limit %d offset %d;''' % (year, PER_PAGE, offset))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
@@ -120,7 +121,7 @@ class MovieQuery:
 		for row in rows:
 			json_record = {}
 			json_record["movie_id"] = row[0]
-			json_record["title"] = row[1].title()
+			json_record["title"] = string.capwords(row[1])
 			json_record["genres"] = row[2]
 			json_record["imdb_id"] = row[3]
 			json_record["tmdb_id"] = row[4]
