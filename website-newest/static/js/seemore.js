@@ -6,7 +6,7 @@ $(document).ready(function(){
 		type = type.replace(/ /g, '').toLowerCase();
 		//set href to that category and redirect
 		var curElement = event.target;
-		var redirectURL = "/"+type+"?page=1";
+		var redirectURL = "/"+type;
 		curElement.setAttribute("href", redirectURL);
 		curElement.click();
 	});

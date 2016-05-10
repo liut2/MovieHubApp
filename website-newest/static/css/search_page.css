@@ -1,13 +1,11 @@
-html{
-  font-family: 'Raleway', sans-serif;
-}
 .brand-logo{
   font-weight: bold;
   font-family: 'Anton', sans-serif;
 }
-nav{
-  background-color: #EDF4ED;
+html{
+  font-family: 'Raleway', sans-serif;
 }
+
 h3{
   font-weight: bold;
   margin: 50px 0px 0px 0px;
@@ -20,30 +18,73 @@ h3{
   position: relative;
   left:400px;
 }
+.button{
+  position:relative;
+  left:20px;
+  bottom: 10px;
+}
+.content{
+  margin-top: 15px;
+}
 .left-nav{
   position: relative;
   left:180px;
 }
-h5{
-	position: relative;
-	margin-top: 30px;
-	display: inline-block;
+.dis{
+  position: relative;
+  left:25px;
+}
+
+.modal-close{
+  float: right;
+}
+
+.carousel{
+  margin-top: -80px;
+  margin-bottom: -20px;
+}
+#search {
+  position: relative;
+  left:200px;
+  top:5px;
+}
+form{
+  display: inline-block;
+}
+#searchinput{
+  height: 18px;
+  color:black;
+}
+.material-icons{
+  color: black;
+}
+input{
+  position: relative;
+  bottom:63px;
+  left:35px;
+}
+
+.title-container{
+  position: relative;
+  bottom:20px;
+  left:110px;
 }
 #search-content{
 	font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .movie-list{
 	margin-top: 30px;
-  margin-right: 160px;
-  margin-left: 160px;
 }
 
 .title{
-	margin-top: 10px;
-  padding-left: 20px;
+  display: inline;
+	position: relative;
+	bottom: 133px;
+	left:50px;
 }
-
 .movie{
   height: 155px;
   margin-bottom: 10px;
@@ -51,15 +92,13 @@ h5{
   background-color: #F9F9F9;
 }
 .movie-img{
-  height: 150px;
-  width: 200%;
-  margin-left: -26px;
-  margin-bottom: -123px;
+  height: 100%;
+  width:8%;
 }
 .movie-info{
   display:inline;
   position: relative;
-  bottom:170px;
+  bottom:190px;
   float:right;
   margin-right: 10px;
 }
@@ -68,27 +107,22 @@ h5{
   margin-right:40px;
 }
 .description{
+  display: inline-block;
   position: relative;
   left: 155px;
-  bottom: 120px;
-  width:1000px;
+  bottom: 200px;
+  width:1100px;
 }
-
+.tag-container{
+  display: inline-block;
+}
 .chip{
   margin-right:3px;
 }
 .star{
-  margin-top: -20px;
-}
-
-.row .col .second-row .first-col{
-  margin-left: 20px;
-  margin-top: 5px;
-}
-
-.row .col .second-row .second-col{
-  margin-left: 20px;
-  margin-top: 5px;
+  position: relative;
+  bottom:145px;
+  left:150px;
 }
 
 a.info{
@@ -99,22 +133,19 @@ a.info{
 h6{
   display: inline;
 }
-#search {
-  position: relative;
-  margin-left:600px;
-  top:0px;
-  width: 150px;
-}
-form{
-  display: inline-block;
-}
-#searchinput{
-  height: 18px;
-  color:black;
-}
 
-.pagination {
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-align: center;
+.pag{
+  position: relative;
+  bottom:50px;
+
+}
+a.page-num{
+  display: inline-block;
+  width:40px;
+}
+li.waves-effect{
+  padding: 0px 0px;
+}
+li.active{
+  padding: 0px 0px;
 }

@@ -4,94 +4,86 @@
 
 <head>
 	{% block myhead %}	
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/materialize.css')}}" />
-  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search_page.css')}}" />
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/materialize.css')}}" />
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search_page.css')}}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.css">
 	{% endblock %}	
 </head>
 
 <body>
   {% block title %}	
-  <div class = "container">
-  	<h5 class = "keyword ">Results for</h5>
-  	<h5 class= "keyword" id = "search-content">"Meow"</h5>
-  </div>
-  {% endblock %}
-  {% block navbar %}
-  <nav class = "white z-depth-1">
-    <div class="nav-wrapper  container">
-      <a href="/" class="left brand-logo cyan-text text-darken-4">MovieHub</a>
-      <form method="get" action="/search" id="search">
-          <input name="query" id = "searchinput" type="text" size="40" placeholder = "Search"/>
-      </form>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        {% if not session.logged_in %}
-        {% else %}
-          <li><a class = "cyan-text text-darken-4" href="/logout" >Logout</a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </nav>
   {% endblock %}
 
   {% block content %}
-  <div id="total-num" class="{{total_page_count}}"></div>
   <div class = "container">
-  	<h5 class="cyan-text text-darken-4">Results for</h5>
-  	<h5 id="search-content" class="cyan-text text-darken-4">{{word}}</h5>
+  	<h5 id = "search-content">Result for {{word}}</h5>
   </div>
 
-  <ul class="collapsible popout movie-list" data-collapsible="accordion">
+  <div class = "container movie-list">
     {% for movie in search_result %}
-    <li>
-      <div class="collapsible-header">
-        <div class="row" style="min-height:130px;">
-          <div class="col s1">
-            <img class = "movie-img" src="{{movie.img_path}}" onerror="if (this.src != 'error.jpg') this.src = '../static/img/poster_not_available.jpg';">
-          </div>
-          <div class="col s11">
-            <div class="row">
-              <div class="col s7">
-                <h5 class="title truncate">{{movie.title}}</h5> </div>
-              <div class="col s5">
-                <span style="margin-right: 15px;">{{movie.release_year}}</span>
-                <span style="margin-right: 15px;">{{movie.length}}</span>
-                <span>{{movie.director}}</span>
-              </div>
-            </div>
-            <div class="row second-row">
-              <div class="star col s5 first-col" id="{{movie.movie_id}}">{{movie.rating}}</div>
-              <div class="col s7 second-col push-s1">
-                {% for genre in movie.genres %}
-                <div class="chip" style="float:right">
-                  {{genre}}
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        </div>
+  	<div class = "movie">
+  		<img class = "movie-img" src="{{movie.img_path}}" onerror="if (this.src != 'error.jpg') this.src = '{{url_for('static', filename='img/poster_not_available.jpg')}}';">
+      <div class = "title-container">
+  		  <h5 class = "title">{{movie.title}}</h5>
       </div>
-      <div class="collapsible-body">
-      <p>Movie Description</p>
-      <p style="margin-top: -30px;">{{movie.description}}</p>
-      </div>
-    </li>
+      <div class = "star" id="{{movie.movie_id}}">{{movie.rating}}</div>
+  		<ul class = "movie-info">
+            <a class = "info" href = "http://www.imdb.com/title/tt{{movie.imdb_id}}">IMDB</a>
+            <li class = "info">{{movie.release_year}}</li>
+            <li class = "info">{{movie.length}}</li>
+          <div class= "tag-container">
+            {% for genre in movie.genres %}
+            <div class="chip">
+              {{genre}}
+            </div>
+            {% endfor %}
+          </div>
+        </ul>
+      <h6 class = "description">{{movie.description}}</h6>
+  	</div>
+    <div class="divider"></div>
     {% endfor %}
-  </ul>
 
+  </div>
+  {% if empty == True %}
   <!--start of the pagination-->
-  <div class="row pagination">
-    <div class="col s8 offset-s2">
-      <ul id="pagination-demo"></ul>
+  <div class="row pag">
+    <div class="col s12">
+        <ul class="pagination center">
+          {% if pagination.has_prev %}
+            <li class="waves-effect"><a href="/{{type}}/page/{{pagination.page-1}}"><i class="material-icons">chevron_left</i></a></li>
+          {% else %}
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+          {%- endif %}
+          {%- for page in pagination.iter_pages() %}
+            {% if page %}
+              {% if page != pagination.page %}
+                <li class="waves-effect"><a class = "page-num" href="/{{type}}/page/{{page}}">{{page}}</a></li>
+              {% else %}
+                <li class="active cyan darken-4"><a class = "page-num" href="#!">{{page}}</a></li>
+              {%- endif %}
+            {% else %}
+              <span class=ellipsis>…</span>
+            {%- endif %}
+          {%- endfor %}
+          {% if pagination.has_next %}
+            <li class="waves-effect"><a href="/{{type}}/page/{{pagination.page+1}}"><i class="material-icons">chevron_right</i></a></li>
+          {% else %}
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+          {%- endif %}
+        </ul>
     </div>
   </div>
+  {% else %}
+  {% endif %}
+  
   <!--end of the pagination-->
+
+
+
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='js/pagination.js')}}"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='js/jquery.twbsPagination.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.js"></script>
   <script>
     $(document).ready(function(){

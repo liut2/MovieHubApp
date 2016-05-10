@@ -1,18 +1,16 @@
 .modal-body {
 	height: 1000px;
 }
-#modal2, #modal3{
-  width: 1000px;
-}
-
-html{
-  font-family: 'Raleway', sans-serif;
-}
 .brand-logo{
   font-weight: bold;
   font-family: 'Anton', sans-serif;
 }
+html{
+  font-family: 'Raleway', sans-serif;
+}
+
 h3{
+  font-weight: bold;
   margin: 50px 0px 0px 0px;
   display: inline-block;
 }
@@ -50,16 +48,21 @@ h3{
 }
 #search {
   position: relative;
-  margin-left:600px;
-  top:0px;
-  width: 150px;
+  left:200px;
+  top:5px;
 }
 form{
   display: inline-block;
-  width: 150px;
 }
 #searchinput{
   height: 18px;
   color:black;
 }
-
+.material-icons{
+  color: black;
+}
+input{
+  position: relative;
+  bottom:63px;
+  left:35px;
+}

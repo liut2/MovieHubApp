@@ -5,9 +5,9 @@
 '''
 
 #variables for psql setup
-database = "movie_app"
-user = "taoliu"
-password = "heart724barn"
+database = "movie"
+user = "postgres"
+
 
 #variables for Facebook login setup
 SECRET_KEY = 'moviehub development key'

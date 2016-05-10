@@ -6,7 +6,7 @@ class UserQuery:
 		pass
 
 	def connect_to_db(self):
-		connection = psycopg2.connect(database="movie_app", user="taoliu")
+		connection = psycopg2.connect(database="movie", user="postgres")
 		return connection
 
 	def check_if_user_exist(self, id):
