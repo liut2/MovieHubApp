@@ -41,7 +41,7 @@
   {% endblock %}
   <!-- end of navigation bar-->
   <!--start of top rated -->
-{% block content%}
+{% block content %}
   <div class = "container">
     <div>
       <h3 class = "cyan-text text-darken-4">Top Rated</h3>
@@ -68,7 +68,7 @@
   <div class = "container content">
     <div>
       <h3 class = "cyan-text text-darken-4">Favorite from Last Year</h3>
-      <a class="waves-effect waves-light btn button" href = "/favoritelastyear">See More</a>
+      <a class="waves-effect waves-light btn button" href = "/favoritefromlastyear">See More</a>
     </div> 
   </div>
    <!--start of carousel container -->
@@ -245,11 +245,11 @@
     <!-- end of modal 3, movies preference form-->
     <!-- import js dependency -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/materialize.js"></script>
-    <script src="../static/js/carousel.js"></script>
-    <script src="../static/js/modal.js"></script>
-    <script src="../static/js/image-picker.js"></script>
-    <script src="../static/js/seemore.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
+    <script src="{{url_for('static', filename='js/carousel.js')}}"></script>
+    <script src="{{url_for('static', filename='js/modal.js')}}"></script>
+    <script src="{{url_for('static', filename='js/image-picker.js')}}"></script>
+    <script src="{{url_for('static', filename='js/seemore.js')}}"></script>
     <script type=text/javascript>
       $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
@@ -296,7 +296,6 @@
           if (count < 3){
             return;
           }
-          //console.log(selected_genres);
           document.getElementById("continue1").classList.remove("continue");
           document.getElementById("continue2").classList.add("continue");
           count = 0;
@@ -315,8 +314,6 @@
           if (count < 5){
             return;
           }
-          //console.log(selected_genres);
-          //console.log(selected_movies);
           $("#modal3").closeModal();
           
           var data = {};

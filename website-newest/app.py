@@ -34,6 +34,7 @@ LIMIT_PER_PAGE = config.LIMIT_PER_PAGE
 genre_list = []
 movie_preference = []
 genre_preference = []
+all_genre = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax']
 
 
 '''This controller handles root route and renders home page for our web app.'''
@@ -62,42 +63,44 @@ def index():
 '''This controller handles the route for search page, and renders the search results.'''
 @app.route("/search")
 def search():
-	empty = True
+	result_empty = True
 	string = request.args.get("query").lower()
 	search_result = json.loads(moviequery.get_movies_containing_title(string))
 	pagination = Pagination(1, LIMIT_PER_PAGE, 1)
 	if(not search_result):
-		empty = False
-		return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination,empty = empty)
+		result_empty = False
+		return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination,result_empty = result_empty)
 	else:
-		return render_template("search_page.html",type = "search",word=string,search_result = search_result,pagination = pagination,empty = empty)
+		return render_template("search_page.html",type = "search",word=string,search_result = search_result,pagination = pagination,result_empty = result_empty)
 
 '''This controller handles the route for rendering details for a specific movie channel.'''
 @app.route("/<type>",defaults={'page': 1})
 @app.route("/<type>/page/<int:page>")
 def seemore(type,page):
-	empty = True
+	result_empty = True
 	if type == "toprated":
 		toprated = json.loads(moviequery.get_toprated_for_page(page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_with_count()
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
-		return render_template("search_page.html",type = "toprated",word="Top Rated",search_result = toprated, pagination = pagination,empty = empty)
+		return render_template("search_page.html",type = type,word="Top Rated",search_result = toprated, pagination = pagination,result_empty = result_empty)
 	elif type == "recentrelease":
 		recentrelease = json.loads(moviequery.get_favourite_from_year_for_page(2016, page, LIMIT_PER_PAGE))
-		count = moviequery.get_favourite_from_year_count(2016)
+		count = moviequery.get_favourite_from_year_with_count(2016)
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
-		return render_template("search_page.html",type = "recentrelease",word="Recent Release",search_result = recentrelease, pagination = pagination,empty = empty)
-	elif type == "favoritelastyear":
+		return render_template("search_page.html",type = type,word="Recent Release",search_result = recentrelease, pagination = pagination,result_empty = result_empty)
+	elif type == "favoritefromlastyear":
 		favoritefromlastyear = json.loads(moviequery.get_favourite_from_year_for_page(2015, page, LIMIT_PER_PAGE))
-		count = moviequery.get_favourite_from_year_count(2015)
+		count = moviequery.get_favourite_from_year_with_count(2015)
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
-		return render_template("search_page.html",type = "favoritelastyear",word="Favorite From Last Year",search_result = favoritefromlastyear, pagination = pagination,empty = empty)
-	else:
+		return render_template("search_page.html",type = type,word="Favorite From Last Year",search_result = favoritefromlastyear, pagination = pagination,result_empty = result_empty)
+	elif type in all_genre:
 		genre = json.loads(moviequery.get_toprated_in_genre_for_page(type.lower(), page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_in_genre_with_count(type.lower())
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
-		return render_template("search_page.html",type = type,word=type,search_result = genre, pagination = pagination,empty = empty)
-	
+		return render_template("search_page.html",type = type,word=type,search_result = genre, pagination = pagination,result_empty = result_empty)
+	else:
+		return render_template('404.html'), 404
+
 '''This controller handles the route for login page, which redirects user
 to Facebook login.'''
 @app.route('/login')

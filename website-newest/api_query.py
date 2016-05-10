@@ -48,7 +48,7 @@ class MovieQuery:
 		page_count = int(ceil(page_count))
 		return page_count
 
-	def get_favourite_from_year_count(self, year):
+	def get_favourite_from_year_with_count(self, year):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		cursor.execute('''select count(*) from movies where release_year = %d;''' % (year))
