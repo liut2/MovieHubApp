@@ -92,11 +92,11 @@ class MovieQuery:
 		connection.close()
 		return self.convert_to_json(rows)
 
-	def get_toprated_in_gener_for_page(self, page,PER_PAGE):
+	def get_toprated_in_genre_for_page(self, genre,page,PER_PAGE):
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		offset = (page - 1) * 15
-		cursor.execute('''select * from movies where genres && '{%s}'::varchar(100)[] order by weighted desc limit %d offset %d;''' % (PER_PAGE, offset))
+		cursor.execute('''select * from movies where genres && '{%s}'::varchar(100)[] order by weighted desc limit %d offset %d;''' % (genre,PER_PAGE, offset))
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
