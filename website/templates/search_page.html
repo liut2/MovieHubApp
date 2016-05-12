@@ -1,11 +1,15 @@
+<!-- author: Tao Liu and Xi Chen
+     This file renders the search page -->
+
 <!DOCTYPE html>
 <html lang="en">
 {% extends "index.html" %}
 
 <head>
 	{% block myhead %}	
-  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/materialize.css')}}" />
-	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search_page.css')}}" />
+  <!--   import the css file for the search page -->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search_page.css')}}" />
+  <!--   import the css file for the star -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.css">
 	{% endblock %}	
 </head>
@@ -93,9 +97,12 @@
   
   <!--end of the pagination-->
 
+  <!-- import the javascript for jquery, materialize, and rating system  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script type="text/javascript" src="{{url_for('static', filename='js/materialize.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.js"></script>
+
+  <!-- render the rating for each movie -->
   <script>
     $(document).ready(function(){
       {% for movie in search_result %}

@@ -1,29 +1,27 @@
+<!-- author: Tao Liu and Xi Chen
+     The 404 page that appears when the page is not availabe -->
+
 <!DOCTYPE html>
 <html lang="en">
-{% extends "index.html" %}
+{% extends "search_page.html" %}
 
 <head>
   {% block myhead %}  
-  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/materialize.css')}}" />
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search_page.css')}}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.1.1/jquery.rateyo.min.css">
   {% endblock %}  
 </head>
 
 <body>
   {% block title %} 
-
   {% endblock %}
 
   {% block content %}
   <div class = "container">
     <h5>The page is not available.</h5>
   </div>
+  {% endblock %}
 
-
-{% endblock %}
-
-{% block modal %}
-{% endblock %}
+  {% block modal %}
+  {% endblock %}
 </body>
 </html>

@@ -5,12 +5,12 @@
 '''
 
 #variables for psql setup
-database = "chenx2"
-user = "chenx2"
-password = "eye577recycle"
-# database = "postgres"
-# user = "postgres"
+# database = "chenx2"
+# user = "chenx2"
 # password = "eye577recycle"
+database = "postgres"
+user = "postgres"
+password = "eye577recycle"
 
 #variables for Facebook login setup
 SECRET_KEY = 'moviehub development key'

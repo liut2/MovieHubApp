@@ -87,31 +87,37 @@ def search():
 @app.route("/<type>/page/<int:page>")
 def seemore(type,page):
 	result_empty = True
+	
 	if type == "toprated":
 		toprated = json.loads(moviequery.get_toprated_for_page(page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_with_count()
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word="Top Rated",search_result = toprated, pagination = pagination,result_empty = result_empty)
+
 	elif type == "recentrelease":
 		recentrelease = json.loads(moviequery.get_favourite_from_year_for_page(2016, page, LIMIT_PER_PAGE))
 		count = moviequery.get_favourite_from_year_with_count(2016)
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word="Recent Release",search_result = recentrelease, pagination = pagination,result_empty = result_empty)
+
 	elif type == "favoritefromlastyear":
 		favoritefromlastyear = json.loads(moviequery.get_favourite_from_year_for_page(2015, page, LIMIT_PER_PAGE))
 		count = moviequery.get_favourite_from_year_with_count(2015)
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word="Favorite From Last Year",search_result = favoritefromlastyear, pagination = pagination,result_empty = result_empty)
+
 	elif type in all_genre:
 		genre = json.loads(moviequery.get_toprated_in_genre_for_page(type.lower(), page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_in_genre_with_count(type.lower())
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word=type,search_result = genre, pagination = pagination,result_empty = result_empty)
+
 	elif type == "customizedmoviesforyou":
 		customizedmoviesforyou = movie_list
 		pagination = Pagination(page, LIMIT_PER_PAGE, len(customizedmoviesforyou))
 		customizedmoviesforyou = customizedmoviesforyou[(page-1)*LIMIT_PER_PAGE:page*LIMIT_PER_PAGE]
 		return render_template("search_page.html",type = type,word="Customized Movies for You",search_result = customizedmoviesforyou, pagination = pagination,result_empty = result_empty)
+
 	else:
 		return render_template('404.html'), 404
 	

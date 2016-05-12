@@ -1,3 +1,6 @@
+/*author: Tao Liu and Xi Chen
+Control the behavior of carousal*/
+
 $(document).ready(function(){
     //manage carousel
     genres = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 'crime', 'drama', 'fantasy', 'animation', 'adventure', 'western', 'action', 'musical', 'comedy', 'documentary', 'war', 'thriller', 'imax']

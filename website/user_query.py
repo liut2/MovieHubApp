@@ -2,16 +2,30 @@ import psycopg2
 import json
 import config
 
+'''
+	user_query.py
+	author: Tao Liu and Xi Chen
+	This Query class connects to the user table and provides functions for app.py
+'''
+
 class UserQuery:
 	def __init__(self):
 		pass
 
 	def connect_to_db(self):
-		connection = psycopg2.connect(database=config.database, user=config.user, password= config.password)
-		# connection = psycopg2.connect(database=config.database, user=config.user)
+		"""
+			Connect to the database
+	    """
+		# connection = psycopg2.connect(database=config.database, user=config.user, password= config.password)
+		connection = psycopg2.connect(database=config.database, user=config.user)
 		return connection
 
 	def check_if_user_exist(self, id):
+		"""
+	    Check if an user exists in the users table
+	    :param id: the id of the user
+	    :return: true if the user exists, false if not
+	    """
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		cursor.execute('''select * from users where user_id=%d;''' % (id))
@@ -20,6 +34,11 @@ class UserQuery:
 		return length == 1
 
 	def add_user(self, id, name):
+		"""
+	    Add an user to the users table
+	    :param id: the id of the user
+	     	   name: the name of the user
+	    """
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 
@@ -28,6 +47,12 @@ class UserQuery:
 		connection.close()
 
 	def update_user_preference(self, id, genres, movies):
+		"""
+	    Update user's preference to the users table
+	    :param id: the id of the user
+	     	   genres: the genres that the user has chosen
+	     	   movies: the movies that the user has chosen
+	    """
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		
@@ -47,6 +72,12 @@ class UserQuery:
 		connection.close()
 
 	def find_user_by_id(self, id):
+		"""
+	    Find a user's information by id
+	    :param id: the id of the user
+	    :return: a dictionary which describes one user with keys "user_id", 
+	    		 "user_name", "selected_genres", "selected_movies"
+	    """
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 		cursor.execute("select * from users where user_id=%d;" % (id))
@@ -56,6 +87,12 @@ class UserQuery:
 
 
 	def convert_to_json(self, row):
+		"""
+	    Convert rows into json list
+	    :param rows: each row contains information of a user
+	    :return: a dictionary which describes one user with keys "user_id", 
+	    		 "user_name", "selected_genres", "selected_movies"
+	    """
 		json_record = {}
 		json_record["user_id"] = row[0]
 		json_record["user_name"] = row[1]

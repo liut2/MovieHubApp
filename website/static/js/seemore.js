@@ -1,3 +1,6 @@
+/*author: Tao Liu and Xi Chen
+Control the behavior of seemore button*/
+
 $(document).ready(function(){
 	$(".seemore").click(function(event){
 		//get current category

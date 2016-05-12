@@ -3,16 +3,29 @@ import json
 import config
 import collections
 
+'''
+	Recommender.py
+	Author : Tao Liu and Xi Chen.
+	This file contains the recommender class that contains functions that involves the recommender system
+'''
+
 class Recommender:
 	def __init__(self):
 		pass
 
 	def connect_to_db(self):
-		connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
-		# connection = psycopg2.connect(database=config.database, user=config.user)
+		'''
+			Connect to the database
+		'''
+		# connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
+		connection = psycopg2.connect(database=config.database, user=config.user)
 		return connection
 
 	def query_movie(self, arr):
+		'''
+			Print the movies indicated by the arr parameter which contains movie's id
+			:para arr: an array of movies ids
+		'''
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 
@@ -25,6 +38,12 @@ class Recommender:
 		connection.close()
 		
 	def find_movie_for_you(self, arr, n):
+		'''
+			Find the movies that are recommended to the users
+			:para arr: an array of movies ids
+				  n: top n users that have similar tastes to the current user
+		    :return a list that contains movie ids
+		'''
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
 
