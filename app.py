@@ -6,7 +6,7 @@ from recommender import Recommender
 import json
 import random
 import config
-from Pagination import Pagination
+from pagination import Pagination
 
 '''
 	app.py
@@ -50,7 +50,7 @@ all_genre = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 
 def index():
 	global genre_list
 	global movie_list
-	# Receiving Ajax POST request means user has updated their preference, then we update the info 
+	# Receiving Ajax POST request means user has updated their preference, then we update the info
 	# in database and reload our page to show that update.
 	if request.method == "POST":
 		response = request.json
@@ -66,7 +66,7 @@ def index():
 	recent_release = json.loads(moviequery.get_recent_release_for_page(1,30))
 	locked_content_count = [1, 2, 3, 4, 5]
 	init_preference_chosen_list()
-	
+
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = locked_content_count, genre_list = genre_list, movie_list = movie_list, genre_preference = genre_preference, movie_preference = movie_preference)
 
 '''This controller handles the route for search page, and renders the search results.'''
@@ -87,7 +87,7 @@ def search():
 @app.route("/<type>/page/<int:page>")
 def seemore(type,page):
 	result_empty = True
-	
+
 	if type == "toprated":
 		toprated = json.loads(moviequery.get_toprated_for_page(page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_with_count()
@@ -120,7 +120,7 @@ def seemore(type,page):
 
 	else:
 		return render_template('404.html'), 404
-	
+
 '''This controller handles the route for login page, which redirects user
 to Facebook login.'''
 @app.route('/login')
@@ -158,10 +158,10 @@ def facebook_authorized(resp):
 	else:
 		userquery.add_user(user_id, user_name)
 		session["alread_choose_preference"] = False
-	
+
 	return redirect(url_for('index'))
 
-'''This section contains some helper methods that are used to construct 
+'''This section contains some helper methods that are used to construct
 functions above.'''
 
 @facebook.tokengetter
