@@ -72,10 +72,15 @@ input{
   left:110px;
   width:80%;
 }
+.result{
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 20px;
+}
 #search-content{
+  display: inline-block;
 	font-weight: bold;
-  margin-top: 30px;
-  margin-bottom: 50px;
+  margin-bottom:20px;
 }
 
 .movie-list{

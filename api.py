@@ -50,7 +50,7 @@ all_genre = ['mystery', 'romance', 'sci-fi', 'horror', 'children', 'film-noir', 
 def index():
 	global genre_list
 	global movie_list
-	# Receiving Ajax POST request means user has updated their preference, then we update the info
+	# Receiving Ajax POST request means user has updated their preference, then we update the info 
 	# in database and reload our page to show that update.
 	if request.method == "POST":
 		response = request.json
@@ -66,61 +66,77 @@ def index():
 	recent_release = json.loads(moviequery.get_recent_release_for_page(1,30))
 	locked_content_count = [1, 2, 3, 4, 5]
 	init_preference_chosen_list()
-
+	
 	return render_template("index.html", toprated = toprated, lastyear = favourite_last_year, recent = recent_release, freq = locked_content_count, genre_list = genre_list, movie_list = movie_list, genre_preference = genre_preference, movie_preference = movie_preference)
 
-'''This controller handles the route for search page, and renders the search results.'''
-@app.route("/search")
-def search():
-	result_empty = True
-	string = request.args.get("query").lower()
-	search_result = json.loads(moviequery.get_movies_containing_title(string))
-	pagination = Pagination(1, LIMIT_PER_PAGE, 1)
-	if(not search_result):
-		result_empty = False
-		return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination,result_empty = result_empty)
-	else:
-		return render_template("search_page.html",type = "search",word=string,search_result = search_result[:30],pagination = pagination,result_empty = result_empty)
-
 '''This controller handles the route for rendering details for a specific movie channel.'''
-@app.route("/<type>",defaults={'page': 1})
-@app.route("/<type>/page/<int:page>")
-def seemore(type,page):
+@app.route("/<type>")
+def seemore(type):
 	result_empty = True
+	if (request.args.get("page") is None):
+		page = 1
+	else:
+		page = request.args.get("page")
+		if(page.isdigit()):
+			page = int(request.args.get("page"))
+		else:
+			return render_template('404.html'), 404
+			
+	if type == "search":
+		string = request.args.get("query").lower()
+		count = moviequery.get_movies_containing_title_with_count(string)
+		search_result = json.loads(moviequery.get_movies_containing_title_for_page(string, page, LIMIT_PER_PAGE))
+		pagination = Pagination(page, LIMIT_PER_PAGE, count)
+		if(not search_result):
+			result_empty = False
+			return render_template("search_page.html",type = "search",word=string+" not found",search_result = search_result,pagination = pagination,result_empty = result_empty)
+		else:
+			return render_template("search_page.html",type = "search",word=string,search_result = search_result,pagination = pagination,result_empty = result_empty)
 
 	if type == "toprated":
 		toprated = json.loads(moviequery.get_toprated_for_page(page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_with_count()
+		if (not check_page_valid(page,count)):
+			return render_template('404.html'), 404
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word="Top Rated",search_result = toprated, pagination = pagination,result_empty = result_empty)
 
 	elif type == "recentrelease":
 		recentrelease = json.loads(moviequery.get_favourite_from_year_for_page(2016, page, LIMIT_PER_PAGE))
 		count = moviequery.get_favourite_from_year_with_count(2016)
+		if (not check_page_valid(page,count)):
+			return render_template('404.html'), 404
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word="Recent Release",search_result = recentrelease, pagination = pagination,result_empty = result_empty)
 
 	elif type == "favoritefromlastyear":
 		favoritefromlastyear = json.loads(moviequery.get_favourite_from_year_for_page(2015, page, LIMIT_PER_PAGE))
 		count = moviequery.get_favourite_from_year_with_count(2015)
+		if (not check_page_valid(page,count)):
+			return render_template('404.html'), 404
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word="Favorite From Last Year",search_result = favoritefromlastyear, pagination = pagination,result_empty = result_empty)
 
 	elif type in all_genre:
 		genre = json.loads(moviequery.get_toprated_in_genre_for_page(type.lower(), page, LIMIT_PER_PAGE))
 		count = moviequery.get_toprated_in_genre_with_count(type.lower())
+		if (not check_page_valid(page,count)):
+			return render_template('404.html'), 404
 		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		return render_template("search_page.html",type = type,word=type,search_result = genre, pagination = pagination,result_empty = result_empty)
 
 	elif type == "customizedmoviesforyou":
 		customizedmoviesforyou = movie_list
-		pagination = Pagination(page, LIMIT_PER_PAGE, len(customizedmoviesforyou))
+		count = len(customizedmoviesforyou)
+		if (not check_page_valid(page,count)):
+			return render_template('404.html'), 404
+		pagination = Pagination(page, LIMIT_PER_PAGE, count)
 		customizedmoviesforyou = customizedmoviesforyou[(page-1)*LIMIT_PER_PAGE:page*LIMIT_PER_PAGE]
 		return render_template("search_page.html",type = type,word="Customized Movies for You",search_result = customizedmoviesforyou, pagination = pagination,result_empty = result_empty)
 
 	else:
 		return render_template('404.html'), 404
-
+	
 '''This controller handles the route for login page, which redirects user
 to Facebook login.'''
 @app.route('/login')
@@ -158,11 +174,21 @@ def facebook_authorized(resp):
 	else:
 		userquery.add_user(user_id, user_name)
 		session["alread_choose_preference"] = False
-
+	
 	return redirect(url_for('index'))
 
-'''This section contains some helper methods that are used to construct
+'''This section contains some helper methods that are used to construct 
 functions above.'''
+
+def check_page_valid(page,count):
+	remainer = count % LIMIT_PER_PAGE
+	if(remainer != 0):
+		if (count / LIMIT_PER_PAGE + 1 < page):
+			return False
+	else:
+		if (count / LIMIT_PER_PAGE < page):
+			return False
+	return True
 
 @facebook.tokengetter
 def get_facebook_token():

@@ -183,7 +183,7 @@ class MovieQuery:
 		page_count = int(ceil(page_count))
 		return page_count
 
-	def get_movies_containing_title(self, string):
+	def get_movies_containing_title_for_page(self, string, page, PER_PAGE):
 		"""
 	    Get a list of movies that matches the string
 	    :param string: the word that the user want to search
@@ -193,10 +193,24 @@ class MovieQuery:
 	    """
 		connection = self.connect_to_db()
 		cursor = connection.cursor()
-		cursor.execute('''select * from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
+		offset = (page - 1) * 15
+		cursor.execute('''select * from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}' limit {1} offset {2};'''.format(string,PER_PAGE,offset))		
 		rows = cursor.fetchall()
 		connection.close()
 		return self.convert_to_json(rows)
+
+	def get_movies_containing_title_with_count(self, string):
+		"""
+	    Count the total number of movies that matches the given string
+	    :return: the number of movies that matches the given string 
+	    """
+		connection = self.connect_to_db()
+		cursor = connection.cursor()
+		cursor.execute('''select count(*) from movies where title::varchar(500) like '% {0}%' OR title::varchar(500) like '% {0} %' OR title::varchar(500) like '{0} %' OR title::varchar(500) like '{0}' OR title::varchar(500) like '% {0}';'''.format(string))		
+		page_count =  cursor.fetchone()[0]
+		connection.close()
+		page_count = int(ceil(page_count))
+		return page_count
 
 	def get_movies_by_id(self, arr):
 		"""
@@ -231,7 +245,7 @@ class MovieQuery:
 			json_record = {}
 			json_record["movie_id"] = row[0]
 			json_record["title"] = change_title(row[1])
-			json_record["genres"] = row[2]
+			json_record["genres"] = row[2][:5]
 			json_record["imdb_id"] = row[3]
 			json_record["tmdb_id"] = row[4]
 			json_record["rating"] = row[5]
